@@ -15,7 +15,42 @@
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(
+    -45deg,
+    rgba(255, 190, 170, 0.3),
+    /* rgba(255, 170, 200, 0.3), */ rgba(170, 220, 255, 0.3),
+    rgba(170, 255, 220, 0.3)
+  );
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  backdrop-filter: blur(90px) saturate(150%);
+  -webkit-backdrop-filter: blur(90px) saturate(150%);
+  background: rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
