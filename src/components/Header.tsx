@@ -85,7 +85,7 @@ export const Header = ({
 
           {/* Resume Link */}
           <a
-            href="https://drive.google.com/file/d/1yBfMXuIBAjFeFQ0S1cq_btKDZOeENyEY/view"
+            href="https://drive.google.com/file/d/1atZRW4uzGDF1PmeF5moTXD56cs13-MJy/view?usp=sharing"
             className="relative group"
             target="_blank"
           >
