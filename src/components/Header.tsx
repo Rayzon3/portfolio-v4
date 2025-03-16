@@ -6,6 +6,7 @@ import {
   EnvelopeClosedIcon,
   FileTextIcon,
 } from "@radix-ui/react-icons";
+import * as Tooltip from "@radix-ui/react-tooltip";
 
 interface HeaderProps {
   name: string;
@@ -60,38 +61,88 @@ export const Header = ({
         </p>
         <div className="mt-4 flex gap-4">
           {/* GitHub Link */}
-          <a
-            href="https://github.com/Rayzon3"
-            className="relative group"
-            target="_blank"
-          >
-            <GitHubLogoIcon className="w-6 h-6 group-hover:opacity-0 transition-opacity" />
-            <ArrowTopRightIcon className="w-6 h-6 absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition-opacity" />
-          </a>
+          <Tooltip.Provider>
+            <Tooltip.Root>
+              <Tooltip.Trigger asChild>
+                <a
+                  href="https://github.com/Rayzon3"
+                  className="relative group"
+                  target="_blank"
+                >
+                  <GitHubLogoIcon className="w-6 h-6 group-hover:opacity-0 transition-opacity" />
+                  <ArrowTopRightIcon className="w-6 h-6 absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </a>
+              </Tooltip.Trigger>
+              <Tooltip.Content
+                side="top"
+                className="bg-gray-800 text-white px-2 py-1 rounded-md text-sm"
+              >
+                GitHub
+              </Tooltip.Content>
+            </Tooltip.Root>
+          </Tooltip.Provider>
           {/* LinkedIn Link */}
-          <a
-            href="https://www.linkedin.com/in/rahulbhardwaj03/"
-            className="relative group"
-            target="_blank"
-          >
-            <LinkedInLogoIcon className="w-6 h-6 group-hover:opacity-0 transition-opacity" />
-            <ArrowTopRightIcon className="w-6 h-6 absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition-opacity" />
-          </a>
+          <Tooltip.Provider>
+            <Tooltip.Root>
+              <Tooltip.Trigger asChild>
+                <a
+                  href="https://www.linkedin.com/in/rahulbhardwaj03/"
+                  className="relative group"
+                  target="_blank"
+                >
+                  <LinkedInLogoIcon className="w-6 h-6 group-hover:opacity-0 transition-opacity" />
+                  <ArrowTopRightIcon className="w-6 h-6 absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </a>
+              </Tooltip.Trigger>
+              <Tooltip.Content
+                side="top"
+                className="bg-gray-800 text-white px-2 py-1 rounded-md text-sm"
+              >
+                LinkedIn
+              </Tooltip.Content>
+            </Tooltip.Root>
+          </Tooltip.Provider>
           {/* Email Link */}
-          <a href="mailto:rahul.03111999@gmail.com" className="relative group">
-            <EnvelopeClosedIcon className="w-6 h-6 group-hover:opacity-0 transition-opacity" />
-            <ArrowTopRightIcon className="w-6 h-6 absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition-opacity" />
-          </a>
-
+          <Tooltip.Provider>
+            <Tooltip.Root>
+              <Tooltip.Trigger asChild>
+                <a
+                  href="mailto:rahul.03111999@gmail.com"
+                  className="relative group"
+                >
+                  <EnvelopeClosedIcon className="w-6 h-6 group-hover:opacity-0 transition-opacity" />
+                  <ArrowTopRightIcon className="w-6 h-6 absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </a>
+              </Tooltip.Trigger>
+              <Tooltip.Content
+                side="top"
+                className="bg-gray-800 text-white px-2 py-1 rounded-md text-sm"
+              >
+                Email
+              </Tooltip.Content>
+            </Tooltip.Root>
+          </Tooltip.Provider>
           {/* Resume Link */}
-          <a
-            href="https://drive.google.com/file/d/1atZRW4uzGDF1PmeF5moTXD56cs13-MJy/view?usp=sharing"
-            className="relative group"
-            target="_blank"
-          >
-            <FileTextIcon className="w-6 h-6 group-hover:opacity-0 transition-opacity" />
-            <ArrowTopRightIcon className="w-6 h-6 absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition-opacity" />
-          </a>
+          <Tooltip.Provider>
+            <Tooltip.Root>
+              <Tooltip.Trigger asChild>
+                <a
+                  href="https://drive.google.com/file/d/1atZRW4uzGDF1PmeF5moTXD56cs13-MJy/view?usp=sharing"
+                  className="relative group"
+                  target="_blank"
+                >
+                  <FileTextIcon className="w-6 h-6 group-hover:opacity-0 transition-opacity" />
+                  <ArrowTopRightIcon className="w-6 h-6 absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </a>
+              </Tooltip.Trigger>
+              <Tooltip.Content
+                side="top"
+                className="bg-gray-800 text-white px-2 py-1 rounded-md text-sm"
+              >
+                Resume
+              </Tooltip.Content>
+            </Tooltip.Root>
+          </Tooltip.Provider>
         </div>
       </div>
     </header>
