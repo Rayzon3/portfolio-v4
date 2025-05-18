@@ -11,7 +11,7 @@ export const Song = () => {
         <div className="relative flex items-center space-x-4">
           <div className="vinyl-spinner">
             <Image
-              src="/images/coverArt.jpeg"
+              src="/images/drain_you_cover_art.jpg"
               alt="Album Cover"
               className="rounded-full z-10"
               width={32}
@@ -20,12 +20,12 @@ export const Song = () => {
           </div>
 
           {/* Song name */}
-          <div>Let You Down - Dawid Podsiadło</div>
+          <div>Drain You - Nirvana</div>
         </div>
 
         {/* Play Icon */}
         <a
-          href="https://open.spotify.com/track/1qpGMJi0ippCaMUOs7cz2q?si=16203e184fe648f9"
+          href="https://open.spotify.com/track/0bTLGlCqwZXwJGWGE2Dywg?si=kXgSGHngTrWXE-J6SW0mCQ"
           target="_blank"
           rel="noopener noreferrer"
           className="items-center align-middle border border-gray-300 rounded-lg p-2"

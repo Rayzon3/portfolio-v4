@@ -1,4 +1,3 @@
-import Image from "next/image";
 import {
   GitHubLogoIcon,
   ArrowTopRightIcon,
@@ -11,21 +10,15 @@ import * as Tooltip from "@radix-ui/react-tooltip";
 interface HeaderProps {
   name: string;
   description: string;
-  avatarUrl1: string;
-  avatarUrl2: string;
+  avatarUrl1?: string;
+  avatarUrl2?: string;
   isAvailable: boolean;
 }
 
-export const Header = ({
-  name,
-  description,
-  avatarUrl1,
-  avatarUrl2,
-  isAvailable,
-}: HeaderProps) => {
+export const Header = ({ name, description, isAvailable }: HeaderProps) => {
   return (
-    <header className="py-10 px-6">
-      <div className="relative group">
+    <header className="py-5 px-6">
+      {/* <div className="relative group">
         <Image
           src={avatarUrl1}
           alt={`Profile picture of ${name}`}
@@ -40,7 +33,7 @@ export const Header = ({
           height={72}
           className="rounded-full border-4 border-white absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         />
-      </div>
+      </div> */}
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold mt-24">{name}</h1>
         <p className="mt-2 text-gray-600">{description}</p>
