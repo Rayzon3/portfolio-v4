@@ -16,7 +16,7 @@ export default function Header({
   navItems = [
     { label: "Home", href: "#home", active: true },
     { label: "Experience", href: "#experience" },
-    { label: "Projects", href: "#projects" },
+    // { label: "Projects", href: "#projects" },
     { label: "Contact", href: "#contact" },
   ],
   className = "",
@@ -195,51 +195,59 @@ export default function Header({
             >
               {title}
             </span>
-          </div>
-
-          {/* Now Playing (center) */}
-          <div className="hidden md:flex flex-1 justify-center">
-            <div
-              className="
+            {/* Now Playing (center) */}
+            <div className="pl-6 hidden md:flex flex-1 justify-center">
+              <div
+                className="
       relative inline-flex items-center gap-3
       px-4 py-2 rounded-full
       bg-white/10 backdrop-blur-xl border border-white/10
       text-white/80 text-sm
       shadow-lg hover:bg-white/15 transition
     "
-              aria-label="Now playing"
-            >
-              {/* Equalizer */}
-              <div className="flex items-end gap-[3px] h-4">
-                <span className="eq-bar" style={{ animationDelay: "0ms" }} />
-                <span className="eq-bar" style={{ animationDelay: "120ms" }} />
-                <span className="eq-bar" style={{ animationDelay: "240ms" }} />
-                <span className="eq-bar" style={{ animationDelay: "360ms" }} />
-              </div>
-
-              <svg
-                className="w-4 h-4 opacity-80"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
+                aria-label="Now playing"
               >
-                <path
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M9 19V6l12-2v13"
-                />
-                <circle cx="6" cy="18" r="3" strokeWidth="2" />
-                <circle cx="18" cy="16" r="3" strokeWidth="2" />
-              </svg>
+                {/* Equalizer */}
+                <div className="flex items-end gap-[3px] h-4">
+                  <span className="eq-bar" style={{ animationDelay: "0ms" }} />
+                  <span
+                    className="eq-bar"
+                    style={{ animationDelay: "120ms" }}
+                  />
+                  <span
+                    className="eq-bar"
+                    style={{ animationDelay: "240ms" }}
+                  />
+                  <span
+                    className="eq-bar"
+                    style={{ animationDelay: "360ms" }}
+                  />
+                </div>
 
-              <span className="whitespace-nowrap">
-                Listening to <span className="text-white">Drain You</span> –{" "}
-                <span className="text-emerald-300">Nirvana</span>
-              </span>
+                <svg
+                  className="w-4 h-4 opacity-80"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 19V6l12-2v13"
+                  />
+                  <circle cx="6" cy="18" r="3" strokeWidth="2" />
+                  <circle cx="18" cy="16" r="3" strokeWidth="2" />
+                </svg>
 
-              {/* Soft glow */}
-              <div className="pointer-events-none absolute -inset-0.5 rounded-full bg-emerald-500/0 group-hover:bg-emerald-500/5 transition" />
+                <span className="whitespace-nowrap">
+                  Listening to <span className="text-white">Drain You</span> –{" "}
+                  <span className="text-emerald-300">Nirvana</span>
+                </span>
+
+                {/* Soft glow */}
+                <div className="pointer-events-none absolute -inset-0.5 rounded-full bg-emerald-500/0 group-hover:bg-emerald-500/5 transition" />
+              </div>
             </div>
           </div>
 

@@ -1,7 +1,8 @@
+// src/app/layout.tsx
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import FaultyTerminal from "@/components/FaultyTerminal/FaultyTerminal";
+import CRTOverlay from "@/components/CRTOverlay";
 
 const departureMono = localFont({
   src: "./fonts/DepartureMono-Regular.woff",
@@ -18,33 +19,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body className={`${departureMono.variable} antialiased relative`}>
-        <div className="fixed inset-0 z-0">
-          <FaultyTerminal
-            scale={1.5}
-            gridMul={[2, 1]}
-            digitSize={1}
-            timeScale={1}
-            pause={false}
-            scanlineIntensity={1}
-            glitchAmount={1}
-            flickerAmount={1}
-            noiseAmp={1}
-            chromaticAberration={0}
-            dither={0}
-            curvature={0.1}
-            tint="#A7EF9E"
-            mouseReact={true}
-            mouseStrength={0.5}
-            pageLoadAnimation={true}
-            brightness={0.5}
-          />
-        </div>
+        <CRTOverlay />
         <div className="relative z-10">{children}</div>
       </body>
     </html>

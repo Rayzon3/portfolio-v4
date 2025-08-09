@@ -8,7 +8,7 @@ export default function Home() {
         navItems={[
           { label: "Home", href: "#home" },
           { label: "Experience", href: "#experience" },
-          { label: "Projects", href: "#projects" },
+          // { label: "Projects", href: "#projects" },
           { label: "Contact", href: "#contact" },
         ]}
         logo="/images/lain.jpg"
@@ -311,7 +311,7 @@ export default function Home() {
         </section>
 
         {/* Projects Section */}
-        <section
+        {/* <section
           id="projects"
           className="min-h-screen flex items-center justify-center px-6 py-20"
         >
@@ -419,7 +419,7 @@ export default function Home() {
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Contact Section */}
         <section
