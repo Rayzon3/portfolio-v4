@@ -1,3 +1,4 @@
+import Experience from "@/components/Experience";
 import Header from "@/components/Header";
 
 export default function Home() {
@@ -191,65 +192,7 @@ export default function Home() {
           id="experience"
           className="min-h-screen flex items-center justify-center px-6 py-20"
         >
-          <div className="max-w-5xl mx-auto">
-            {/* Section Title */}
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold">
-                <span className="font-lora text-white font-normal">
-                  Experience
-                </span>
-              </h2>
-              <p className="font-inter text-sm font-semibold text-white/70 mt-3">
-                Companies I&apos;ve had the pleasure to work with...
-              </p>
-            </div>
-
-            {/* Timeline Container */}
-            <div className="relative border-l border-emerald-500/30 pl-8">
-              {[
-                {
-                  company: "Byteridge",
-                  role: "Software Development Engineer",
-                  period: "June 2023 – Present",
-                  description:
-                    "Developed scalable React and Node.js applications, optimized performance, integrated MapBox maps, and automated CI/CD with Docker and GitHub Actions.",
-                },
-                {
-                  company: "Byteridge",
-                  role: "Software Development Engineer Intern",
-                  period: "Feb 2023 – June 2023",
-                  description:
-                    "Redesigned internal tool UI, built AR features with Flutter & ARCore, and created optimized APIs using Node.js, Prisma, and PostgreSQL.",
-                },
-                {
-                  company: "Zyvka",
-                  role: "Backend Developer Intern",
-                  period: "Aug 2022 – Jan 2023",
-                  description:
-                    "Designed backend architecture with Node.js and Prisma, developed REST APIs, and deployed services on AWS EC2 with CI/CD pipelines.",
-                },
-              ].map((exp, idx) => (
-                <div key={idx} className="mb-10 relative">
-                  {/* Timeline Dot */}
-                  <div className="absolute -left-[10px] top-1 w-5 h-5 bg-emerald-500 border-4 border-gray-900 rounded-full shadow-lg"></div>
-
-                  {/* Card */}
-                  <div className="bg-black/30 backdrop-blur-lg p-6 rounded-2xl border border-white/10 hover:border-white/20 hover:bg-black/40 transition-all duration-300">
-                    <h3 className="text-2xl font-normal text-white">
-                      {exp.role}
-                    </h3>
-                    <p className="text-emerald-400 font-lora font-medium">
-                      {exp.company}
-                    </p>
-                    <p className="text-sm text-white/60">{exp.period}</p>
-                    <p className="text-white/80 text-sm font-semibold mt-2">
-                      {exp.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <Experience />
         </section>
 
         {/* Projects Section */}
