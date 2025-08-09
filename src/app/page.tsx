@@ -21,37 +21,16 @@ export default function Home() {
           className="min-h-screen flex items-center justify-center px-6 pt-20"
         >
           <div className="max-w-4xl mx-auto text-center space-y-8">
-            <div
-              className="
-              relative
-              bg-black/20 
-              backdrop-blur-xl 
-              border border-white/10 
-              rounded-3xl 
-              p-12
-              shadow-2xl
-              transition-all duration-300 ease-out
-              hover:bg-black/30
-              hover:border-white/20
-              hover:shadow-[0_8px_32px_rgba(0,255,0,0.1)]
-            "
-            >
+            <div className="relative">
               {/* Background gradient overlay */}
-              <div
-                className="
-                absolute inset-0 
-                bg-gradient-to-br from-emerald-500/10 via-transparent to-emerald-500/5 
-                rounded-3xl 
-              "
-              />
-
+              <div className="absolute inset-0" />
               <div className="relative z-10 space-y-6">
                 <h1 className="text-5xl md:text-6xl font-bold">
-                  <span className="bg-gradient-to-r from-white to-emerald-400 bg-clip-text text-transparent">
+                  <span className="font-lora font-normal text-white">
                     Rahul Bhardwaj
                   </span>
                 </h1>
-                <p className="text-xl md:text-2xl text-white/80 max-w-2xl mx-auto leading-relaxed">
+                <p className="text-white/80 text-md max-w-2xl mx-auto leading-relaxed font-semibold">
                   Software Engineer crafting digital experiences!
                 </p>
                 <div className="flex flex-wrap justify-center gap-3 pt-4 cursor-pointer">
@@ -212,42 +191,21 @@ export default function Home() {
           id="experience"
           className="min-h-screen flex items-center justify-center px-6 py-20"
         >
-          <div className="max-w-5xl mx-auto space-y-12">
-            <div className="text-center space-y-4">
+          <div className="max-w-5xl mx-auto">
+            {/* Section Title */}
+            <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-bold">
-                <span className="bg-gradient-to-r from-white to-emerald-400 bg-clip-text text-transparent">
+                <span className="font-lora text-white font-normal">
                   Experience
                 </span>
               </h2>
-              <div
-                className="
-      inline-block
-      relative
-      bg-black/20 
-      backdrop-blur-xl 
-      border border-white/10 
-      rounded-2xl 
-      px-6 py-3
-      shadow-lg
-      transition-all duration-300 ease-out
-      hover:bg-black/30
-      hover:border-white/20
-    "
-              >
-                <div
-                  className="
-        absolute inset-0 
-        bg-gradient-to-br from-emerald-500/5 via-transparent to-emerald-500/10 
-        rounded-2xl
-      "
-                />
-                <p className="text-lg font-black  text-white/70 max-w-2xl mx-auto">
-                  Companies I&apos;ve had a pleasure to work with...
-                </p>
-              </div>
+              <p className="font-inter text-sm font-semibold text-white/70 mt-3">
+                Companies I&apos;ve had the pleasure to work with...
+              </p>
             </div>
 
-            <div className="space-y-8">
+            {/* Timeline Container */}
+            <div className="relative border-l border-emerald-500/30 pl-8">
               {[
                 {
                   company: "Byteridge",
@@ -271,38 +229,22 @@ export default function Home() {
                     "Designed backend architecture with Node.js and Prisma, developed REST APIs, and deployed services on AWS EC2 with CI/CD pipelines.",
                 },
               ].map((exp, idx) => (
-                <div
-                  key={idx}
-                  className="
-            relative
-            bg-black/20 
-            backdrop-blur-xl 
-            border border-white/10 
-            rounded-3xl 
-            p-6
-            shadow-xl
-            transition-all duration-300 ease-out
-            hover:bg-black/30
-            hover:border-white/20
-            hover:scale-105
-          "
-                >
-                  <div
-                    className="
-              absolute inset-0 
-              bg-gradient-to-br from-emerald-500/5 via-transparent to-emerald-500/10 
-              rounded-3xl
-            "
-                  />
-                  <div className="relative z-10 space-y-3">
-                    <h3 className="text-2xl font-semibold text-white">
+                <div key={idx} className="mb-10 relative">
+                  {/* Timeline Dot */}
+                  <div className="absolute -left-[10px] top-1 w-5 h-5 bg-emerald-500 border-4 border-gray-900 rounded-full shadow-lg"></div>
+
+                  {/* Card */}
+                  <div className="bg-black/30 backdrop-blur-lg p-6 rounded-2xl border border-white/10 hover:border-white/20 hover:bg-black/40 transition-all duration-300">
+                    <h3 className="text-2xl font-normal text-white">
                       {exp.role}
                     </h3>
-                    <p className="text-emerald-400 font-medium">
+                    <p className="text-emerald-400 font-lora font-medium">
                       {exp.company}
                     </p>
                     <p className="text-sm text-white/60">{exp.period}</p>
-                    <p className="text-white/80">{exp.description}</p>
+                    <p className="text-white/80 text-sm font-semibold mt-2">
+                      {exp.description}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -429,143 +371,29 @@ export default function Home() {
           <div className="max-w-4xl mx-auto space-y-12">
             <div className="text-center space-y-4">
               <h2 className="text-4xl md:text-5xl font-bold">
-                <span className="bg-gradient-to-r from-white to-emerald-400 bg-clip-text text-transparent">
+                <span className=" font-lora text-white font-normal">
                   Let&apos;s Connect
                 </span>
               </h2>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-8">
-              <div
-                className="
-                relative
-                bg-black/20 
-                backdrop-blur-xl 
-                border border-white/10 
-                rounded-2xl 
-                p-8
-                shadow-xl
-                transition-all duration-300 ease-out
-                hover:bg-black/30
-                hover:border-white/20
-                hover:scale-105
-              "
-              >
-                <div
-                  className="
-                  absolute inset-0 
-                  bg-gradient-to-br from-emerald-500/5 via-transparent to-emerald-500/10 
-                  rounded-2xl 
-                "
-                />
-
-                <div className="relative z-10 space-y-6">
-                  <h3 className="text-2xl font-semibold text-white">
-                    Get in Touch
-                  </h3>
-                  <div className="space-y-4">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-8 h-8 bg-emerald-500/20 rounded-lg flex items-center justify-center">
-                        <svg
-                          className="w-4 h-4 text-emerald-400"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                          />
-                        </svg>
-                      </div>
-                      <span className="text-white/80">
-                        rahul.031119999@gmail.com
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div
-                className="
-                relative
-                bg-black/20 
-                backdrop-blur-xl 
-                border border-white/10 
-                rounded-2xl 
-                p-8
-                shadow-xl
-                transition-all duration-300 ease-out
-                hover:bg-black/30
-                hover:border-white/20
-              "
-              >
-                <div
-                  className="
-                  absolute inset-0 
-                  bg-gradient-to-br from-emerald-500/5 via-transparent to-emerald-500/10 
-                  rounded-2xl 
-                "
-                />
-
-                <div className="relative z-10 space-y-6">
-                  <h3 className="text-2xl font-semibold text-white">
-                    Quick Message
-                  </h3>
-                  <form className="space-y-4">
-                    <input
-                      type="text"
-                      placeholder="Your Name"
-                      className="
-                        w-full p-3 
-                        bg-white/10 
-                        border border-white/20 
-                        rounded-lg 
-                        text-white 
-                        placeholder-white/50
-                        backdrop-blur-sm
-                        focus:outline-none 
-                        focus:border-emerald-400
-                        transition-colors duration-300
-                      "
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 bg-emerald-500/20 rounded-lg flex items-center justify-center">
+                  <svg
+                    className="w-4 h-4 text-emerald-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                     />
-                    <textarea
-                      placeholder="Your Message"
-                      rows={4}
-                      className="
-                        w-full p-3 
-                        bg-white/10 
-                        border border-white/20 
-                        rounded-lg 
-                        text-white 
-                        placeholder-white/50
-                        backdrop-blur-sm
-                        focus:outline-none 
-                        focus:border-emerald-400
-                        transition-colors duration-300
-                        resize-none
-                      "
-                    />
-                    <button
-                      type="submit"
-                      className="
-                        w-full p-3 
-                        bg-emerald-500/20 
-                        border border-emerald-500/30 
-                        rounded-lg 
-                        text-emerald-400 
-                        font-medium
-                        transition-all duration-300
-                        hover:bg-emerald-500/30
-                        hover:scale-105
-                      "
-                    >
-                      Send Message
-                    </button>
-                  </form>
+                  </svg>
                 </div>
+                <span className="text-white/80 text-sm font-semibold">
+                  rahul.031119999@gmail.com
+                </span>
               </div>
             </div>
           </div>

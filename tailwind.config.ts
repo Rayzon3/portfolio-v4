@@ -13,6 +13,10 @@ export default {
         foreground: "var(--foreground)",
         lighterGreen: "#babfb9",
       },
+      fontFamily: {
+        inter: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+        lora: ["Lora", "ui-serif", "Georgia", "serif"],
+      },
     },
   },
   plugins: [],

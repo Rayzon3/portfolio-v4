@@ -191,6 +191,7 @@ export default function Header({
               tracking-tight
               transition-colors duration-300
               group-hover:text-white
+              font-lora
             "
             >
               {title}
