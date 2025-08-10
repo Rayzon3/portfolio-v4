@@ -119,7 +119,7 @@ export default function Home() {
                   </a>
 
                   <a
-                    href="/resume.pdf"
+                    href="https://drive.google.com/file/d/1fQbEP9AFe3LS56C_nmnfoLSrFxkeJtr4/view?usp=sharing"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="
@@ -152,7 +152,7 @@ export default function Home() {
                   </a>
 
                   <a
-                    href="mailto:rahul@example.com"
+                    href="mailto:rahul.03111999@gmail.com"
                     className="
                       w-12 h-12
                       bg-white/10 
