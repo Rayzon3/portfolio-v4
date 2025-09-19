@@ -1,5 +1,6 @@
 import Experience from "@/components/Experience";
 import Header from "@/components/Header";
+import FlyingBat from "./components/FlyingBat";
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
         >
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <div className="relative">
+              <FlyingBat />
               {/* Background gradient overlay */}
               <div className="absolute inset-0" />
               <div className="relative z-10 space-y-6">

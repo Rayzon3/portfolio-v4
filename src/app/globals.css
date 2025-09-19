@@ -43,3 +43,41 @@
     transform: scaleY(0.6);
   }
 }
+
+/* globals.css */
+@layer components {
+.pixel-bat-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 50;
+    /* grow from center */
+  }
+
+  .pixel-bat {
+    width: 32px;
+    height: 32px;
+    transform: scale(1.5);
+      /* doubles the bat size */
+      transform-origin: center;
+    background-image: url('/images/bat.png');
+    background-repeat: no-repeat;
+    background-size: 64px 32px;
+    image-rendering: pixelated;
+    will-change: transform;
+    animation: flap .4s steps(2) infinite;
+  }
+  @keyframes flap {
+    to {
+      background-position: -64px 0;
+      
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pixel-bat {
+      animation: none;
+    }
+  }
+}
