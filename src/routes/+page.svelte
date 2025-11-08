@@ -207,10 +207,8 @@
           >
         </li>
         <li>
-          <a
-            href="https://twitter.com/chrisovereis"
-            target="_blank"
-            rel="noopener">Twitter</a
+          <a href="https://x.com/BlackKatana9" target="_blank" rel="noopener"
+            >Twitter</a
           >
         </li>
       </ul>
