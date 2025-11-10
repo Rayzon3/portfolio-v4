@@ -3,10 +3,36 @@
   let name = "Rahul";
   let title = "Software Engineer";
   let location = "Gurgaon";
+
+  const technologies1 = [
+    "React",
+    "React Query",
+    "Next.js",
+    "Node.js",
+    "Prisma",
+    "PostgreSQL",
+    "AWS Lambda",
+    "EventBridge",
+    "MapBox",
+    "Docker",
+    "GitHub Actions",
+    "JWT/RBAC",
+  ];
+
+  const technologies2 = ["React", "Node.js", "PostgreSQL", "Prisma"];
+
+  const technologies3 = [
+    "Node.js",
+    "Prisma",
+    "PostgreSQL",
+    "AWS EC2",
+    "GitHub Actions",
+  ];
 </script>
 
 <svelte:head>
   <title>Ahoy!</title>
+  <link rel="icon" type="image/png" href="/IMG_3603.png" />
 </svelte:head>
 
 <div class="page-wrapper">
@@ -112,18 +138,9 @@
         </ul>
 
         <div class="tech-tags">
-          <span class="tech-tag">React</span>
-          <span class="tech-tag">React Query</span>
-          <span class="tech-tag">Next.js</span>
-          <span class="tech-tag">Node.js</span>
-          <span class="tech-tag">Prisma</span>
-          <span class="tech-tag">PostgreSQL</span>
-          <span class="tech-tag">AWS Lambda</span>
-          <span class="tech-tag">EventBridge</span>
-          <span class="tech-tag">MapBox</span>
-          <span class="tech-tag">Docker</span>
-          <span class="tech-tag">GitHub Actions</span>
-          <span class="tech-tag">JWT/RBAC</span>
+          {#each technologies1 as tech}
+            <code class="inline-code-tech_tag">{tech}</code>
+          {/each}
         </div>
       </div>
 
@@ -145,10 +162,9 @@
         </ul>
 
         <div class="tech-tags">
-          <span class="tech-tag">React</span>
-          <span class="tech-tag">Node.js</span>
-          <span class="tech-tag">PostgreSQL</span>
-          <span class="tech-tag">Prisma</span>
+          {#each technologies2 as tech}
+            <code class="inline-code-tech_tag">{tech}</code>
+          {/each}
         </div>
       </div>
 
@@ -171,11 +187,9 @@
         </ul>
 
         <div class="tech-tags">
-          <span class="tech-tag">Node.js</span>
-          <span class="tech-tag">Prisma</span>
-          <span class="tech-tag">PostgreSQL</span>
-          <span class="tech-tag">AWS EC2</span>
-          <span class="tech-tag">GitHub Actions</span>
+          {#each technologies3 as tech}
+            <code class="inline-code-tech_tag">{tech}</code>
+          {/each}
         </div>
       </div>
 
@@ -239,7 +253,7 @@
 <style>
   @font-face {
     font-family: "Tamzen";
-    src: url("/Tamzen7x13r.ttf") format("truetype");
+    src: url("Tamzen8x15r.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
   }
@@ -254,7 +268,7 @@
     background-color: #0d0c11;
     color: #e0def4;
     font-family: "Tamzen", ui-monospace, monospace;
-    font-size: 14px;
+    font-size: 15px;
     line-height: 1.6;
     overflow-x: hidden;
   }
@@ -439,6 +453,14 @@
     font-family: inherit;
   }
 
+  .inline-code-tech_tag {
+    background-color: #26233a;
+    color: #ea9a97;
+    padding: 0.1rem 0.3rem;
+    font-size: 0.95em;
+    font-family: inherit;
+  }
+
   /* Experience Section */
   .experience-item {
     margin: 2rem 0;
@@ -495,15 +517,6 @@
     flex-wrap: wrap;
     gap: 0.5rem;
     margin-top: 1rem;
-  }
-
-  .tech-tag {
-    background-color: #1f1d2e;
-    border: 1px solid #31748f;
-    color: #9ccfd8;
-    padding: 0.25rem 0.6rem;
-    font-size: 12px;
-    border-radius: 3px;
   }
 
   /* Responsive */
