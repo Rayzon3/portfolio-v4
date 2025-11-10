@@ -253,7 +253,7 @@
 <style>
   @font-face {
     font-family: "Tamzen";
-    src: url("Tamzen8x15r.ttf") format("truetype");
+    src: url("/Tamzen8x15r.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
   }
