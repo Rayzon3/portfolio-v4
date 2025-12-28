@@ -36,12 +36,14 @@
 </svelte:head>
 
 <div class="page-wrapper">
+  <!-- TOP HEADER (sticky + frosted) -->
   <header class="header">
     <div class="header-left">
       <span class="status-dot"></span>
       <span class="site-title">rahulbhardwaj.codes</span>
       <span class="cursor">_</span>
     </div>
+
     <nav class="header-nav">
       <a href="/">about</a>
       <a href="/blog">blog</a>
@@ -49,204 +51,260 @@
     </nav>
   </header>
 
-  <main class="main-content">
-    <article>
-      <div class="post-meta">
-        <span class="label">Hello, world!</span>
-        <span class="meta-text">#ahoy</span>
-      </div>
-      <div class="post-date">
-        Last updated December 28 2025, 08:29:00<br />
-        Approx. 2 minute read
-      </div>
+  <main class="layout">
+    <!-- LEFT: content column -->
+    <section class="content">
+      <article>
+        <div class="post-meta">
+          <span class="label">Hello, world!</span>
+          <span class="meta-text">#ahoy</span>
+        </div>
+        <div class="post-date">
+          Last updated December 28 2025, 08:29:00<br />
+          Approx. 2 minute read
+        </div>
 
-      <h3 id="hello">Ahoy!! I'm <code class="inline-code">{name}</code>!</h3>
+        <p id="hello">Ahoy!! I'm <code class="inline-code">{name}</code>!</p>
 
-      <p>
-        I'm currently a <code class="inline-code">{title}</code> based in
-        <span class="highlight">{location}</span>
-        trying to create great software experiences!
-      </p>
+        <p>
+          I'm currently a <code class="inline-code">{title}</code> based in
+          <span class="highlight">{location}</span>
+          trying to create great software experiences!
+        </p>
 
-      <p>I usually work with Typescript, NodeJs and React.</p>
+        <p>I usually work with Typescript, NodeJs and React.</p>
 
-      <p>In my spare time I enjoy playing guitar, gaming and watching anime.</p>
+        <p>
+          In my spare time I enjoy playing guitar, gaming and watching anime.
+        </p>
 
-      <h2 id="background">Background</h2>
+        <h2 id="background">Background</h2>
 
-      <p>
-        I'm a self-taught developer who started programming in high school.
-        Initially i was interested in making games(did make a few in godot and
-        pygame).
-      </p>
+        <p>
+          I'm a self-taught developer who started programming in high school.
+          Initially i was interested in making games(did make a few in godot and
+          pygame).
+        </p>
 
-      <p>
-        My passion for game dev is still alive and am improving my pixel art
-        skills!
-      </p>
+        <p>
+          My passion for game dev is still alive and am improving my pixel art
+          skills!
+        </p>
 
-      <p>
-        In all these years i have dabbled in a variety of languages and
-        frameworks, primarily focused on web development or systems programming.
-      </p>
+        <p>
+          In all these years i have dabbled in a variety of languages and
+          frameworks, primarily focused on web development or systems
+          programming.
+        </p>
 
-      <p>Nowadays, my go-to tech stack includes:</p>
+        <p>Nowadays, my go-to tech stack includes:</p>
 
-      <ul>
-        <li>React</li>
-        <li>Svelte</li>
-        <li>PostgreSQL or SQLite</li>
-        <li>Elixir</li>
-        <li>Go</li>
-        <li>Tailwind CSS</li>
-      </ul>
+        <ul>
+          <li>React</li>
+          <li>Svelte</li>
+          <li>PostgreSQL or SQLite</li>
+          <li>Elixir</li>
+          <li>Go</li>
+          <li>Tailwind CSS</li>
+        </ul>
 
-      <p>
-        I've been a longtime member of the ricing community, which still
-        regularly inspires me to optimize my workflow and environment.
-      </p>
+        <p>
+          I've been a longtime member of the ricing community, which still
+          regularly inspires me to optimize my workflow and environment.
+        </p>
 
-      <h2 id="experience">Experience</h2>
+        <h2 id="experience">Experience</h2>
 
-      <div class="experience-item">
-        <div class="experience-header">
-          <div class="experience-period">
-            <span>June 2023 – Present</span>
+        <div class="experience-item">
+          <div class="experience-header">
+            <div class="experience-period">
+              <span>June 2023 – Present</span>
+            </div>
+          </div>
+
+          <h3 class="job-title">Software Development Engineer</h3>
+          <div class="company-info">
+            <span class="company-name">Byteridge</span>
+          </div>
+
+          <ul class="achievements">
+            <li>
+              Delivered end-to-end features as IC across multiple web apps.
+            </li>
+            <li>Refactored React bundles (~10%) → page loads +20%.</li>
+            <li>
+              State revamp with React Query + useReducer (~20% re-renders).
+            </li>
+            <li>
+              Node.js + Prisma APIs with &lt;200ms p95 @ 1k+ daily concurrents.
+            </li>
+            <li>
+              Serverless email scheduler (Lambda + EventBridge): 500+ mails/day.
+            </li>
+            <li>Next.js + MapBox geospatial filters for 200+ daily users.</li>
+            <li>
+              JWT-based RBAC across 5 microservices; passed security audits.
+            </li>
+            <li>CI/CD automation with Docker + GitHub Actions.</li>
+          </ul>
+
+          <div class="tech-tags">
+            {#each technologies1 as tech}
+              <code class="inline-code-tech_tag">{tech}</code>
+            {/each}
           </div>
         </div>
 
-        <h3 class="job-title">Software Development Engineer</h3>
-        <div class="company-info">
-          <span class="company-name">Byteridge</span>
-        </div>
+        <div class="experience-item">
+          <div class="experience-header">
+            <div class="experience-period">
+              <span>Feb 2023 – June 2023</span>
+            </div>
+          </div>
 
-        <ul class="achievements">
-          <li>Delivered end-to-end features as IC across multiple web apps.</li>
-          <li>Refactored React bundles (~10%) → page loads +20%.</li>
-          <li>State revamp with React Query + useReducer (~20% re-renders).</li>
-          <li>
-            Node.js + Prisma APIs with &lt;200ms p95 @ 1k+ daily concurrents.
-          </li>
-          <li>
-            Serverless email scheduler (Lambda + EventBridge): 500+ mails/day.
-          </li>
-          <li>Next.js + MapBox geospatial filters for 200+ daily users.</li>
-          <li>
-            JWT-based RBAC across 5 microservices; passed security audits.
-          </li>
-          <li>CI/CD automation with Docker + GitHub Actions.</li>
-        </ul>
+          <h3 class="job-title">Software Development Engineer Intern</h3>
+          <div class="company-info">
+            <span class="company-name">Byteridge</span>
+          </div>
 
-        <div class="tech-tags">
-          {#each technologies1 as tech}
-            <code class="inline-code-tech_tag">{tech}</code>
-          {/each}
-        </div>
-      </div>
+          <ul class="achievements">
+            <li>Redesigned internal tool UI in React.</li>
+            <li>Optimized Node.js + PostgreSQL APIs (~40% response time).</li>
+          </ul>
 
-      <div class="experience-item">
-        <div class="experience-header">
-          <div class="experience-period">
-            <span>Feb 2023 – June 2023</span>
+          <div class="tech-tags">
+            {#each technologies2 as tech}
+              <code class="inline-code-tech_tag">{tech}</code>
+            {/each}
           </div>
         </div>
 
-        <h3 class="job-title">Software Development Engineer Intern</h3>
-        <div class="company-info">
-          <span class="company-name">Byteridge</span>
-        </div>
+        <div class="experience-item">
+          <div class="experience-header">
+            <div class="experience-period">
+              <span>Aug 2022 – Jan 2023</span>
+            </div>
+          </div>
 
-        <ul class="achievements">
-          <li>Redesigned internal tool UI in React.</li>
-          <li>Optimized Node.js + PostgreSQL APIs (~40% response time).</li>
-        </ul>
+          <h3 class="job-title">Backend Developer Intern</h3>
+          <div class="company-info">
+            <span class="company-name">Zvyka</span>
+          </div>
 
-        <div class="tech-tags">
-          {#each technologies2 as tech}
-            <code class="inline-code-tech_tag">{tech}</code>
-          {/each}
-        </div>
-      </div>
+          <ul class="achievements">
+            <li>Designed scalable backend with Node.js, Prisma, PostgreSQL.</li>
+            <li>Built & tested REST APIs; production hardening.</li>
+            <li>AWS EC2 deployments with robust CI/CD.</li>
+          </ul>
 
-      <div class="experience-item">
-        <div class="experience-header">
-          <div class="experience-period">
-            <span>Aug 2022 – Jan 2023</span>
+          <div class="tech-tags">
+            {#each technologies3 as tech}
+              <code class="inline-code-tech_tag">{tech}</code>
+            {/each}
           </div>
         </div>
 
-        <h3 class="job-title">Backend Developer Intern</h3>
-        <div class="company-info">
-          <span class="company-name">Zvyka</span>
-        </div>
+        <h2 id="blog-projects">Blog &amp; Projects</h2>
 
-        <ul class="achievements">
-          <li>Designed scalable backend with Node.js, Prisma, PostgreSQL.</li>
-          <li>Built & tested REST APIs; production hardening.</li>
-          <li>AWS EC2 deployments with robust CI/CD.</li>
+        <p>
+          You can check out my writings on various topics on my <a href="/blog"
+            >blog</a
+          >.
+        </p>
+
+        <p>
+          You can additionally see a list of <a
+            href="https://github.com/Rayzon3">projects</a
+          >
+          I've worked on or contributed to.
+        </p>
+
+        <h2 id="contact">Contact</h2>
+
+        <p>
+          I try to go by <code class="inline-code">Rayzon</code> on most platforms,
+          you can find me on:
+        </p>
+
+        <ul>
+          <li>
+            <a href="https://github.com/Rayzon3" target="_blank" rel="noopener"
+              >GitHub</a
+            >
+          </li>
+          <li>
+            <a href="https://x.com/BlackKatana9" target="_blank" rel="noopener"
+              >Twitter</a
+            >
+          </li>
         </ul>
 
-        <div class="tech-tags">
-          {#each technologies3 as tech}
-            <code class="inline-code-tech_tag">{tech}</code>
-          {/each}
+        <p>
+          In cases where <code class="inline-code">Rayzon</code> is not available,
+          you can find me here:
+        </p>
+
+        <ul>
+          <li>
+            <a
+              href="https://linkedin.com/in/rahulbhardwaj03"
+              target="_blank"
+              rel="noopener">LinkedIn</a
+            >
+          </li>
+        </ul>
+
+        <p>
+          Feel free to reach out to me via <a href="mailto:{email}">email</a> or
+          any of the platforms above if you want to chat!
+        </p>
+
+        <div class="sticky-footer">
+          <div class="post-footer-links">
+            <a
+              href="/rss.xml"
+              class="footer-chip"
+              target="_blank"
+              rel="noopener"
+            >
+              RSS
+            </a>
+
+            <a
+              href="https://github.com/Rayzon3/portfolio-v4"
+              class="footer-chip"
+              target="_blank"
+              rel="noopener"
+            >
+              Source
+            </a>
+          </div>
         </div>
+      </article>
+    </section>
+
+    <!-- RIGHT: sidebar column -->
+    <aside class="sidebar">
+      <div class="side-section">
+        <div class="side-title">▼ Presence</div>
+        <div class="side-row">• Rahul Offline</div>
       </div>
 
-      <h2 id="blog-projects">Blog &amp; Projects</h2>
+      <div class="side-section">
+        <div class="side-title">▼ Viewers</div>
+        <div class="side-row">• Site-wide: 4</div>
+        <div class="side-row">• This page: 2</div>
+      </div>
 
-      <p>
-        You can check out my writings on various topics on my <a href="/blog"
-          >blog</a
-        >.
-      </p>
-
-      <p>
-        You can additionally see a list of <a href="https://github.com/Rayzon3"
-          >projects</a
-        > I've worked on or contributed to.
-      </p>
-
-      <h2 id="contact">Contact</h2>
-
-      <p>
-        I try to go by <code class="inline-code">Rayzon</code> on most platforms,
-        you can find me on:
-      </p>
-
-      <ul>
-        <li>
-          <a href="https://github.com/Rayzon3" target="_blank" rel="noopener"
-            >GitHub</a
-          >
-        </li>
-        <li>
-          <a href="https://x.com/BlackKatana9" target="_blank" rel="noopener"
-            >Twitter</a
-          >
-        </li>
-      </ul>
-
-      <p>
-        In cases where <code class="inline-code">Rayzon</code> is not available,
-        you can find me here:
-      </p>
-
-      <ul>
-        <li>
-          <a
-            href="https://linkedin.com/in/rahulbhardwaj03"
-            target="_blank"
-            rel="noopener">LinkedIn</a
-          >
-        </li>
-      </ul>
-
-      <p>
-        Feel free to reach out to me via <a href="mailto:{email}">email</a> or any
-        of the platforms above if you want to chat!
-      </p>
-    </article>
+      <div class="side-section">
+        <div class="side-title">▼ Table of Contents</div>
+        <a class="toc-link" href="#hello"># Hello, world!</a>
+        <a class="toc-link" href="#background">## Background</a>
+        <a class="toc-link" href="#experience">## Experience</a>
+        <a class="toc-link" href="#blog-projects">## Blog &amp; Projects</a>
+        <a class="toc-link" href="#contact">## Contact</a>
+      </div>
+    </aside>
   </main>
 </div>
 
@@ -274,17 +332,27 @@
   }
 
   .page-wrapper {
-    display: grid;
-    grid-template-columns: 280px 1fr 280px;
-    grid-template-rows: auto 1fr;
     min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr minmax(0, 780px) 320px 1fr;
+    grid-template-rows: auto 1fr;
     gap: 0;
   }
 
   /* Header */
   .header {
     grid-column: 1 / -1;
-    background-color: #0d0c11;
+
+    position: sticky;
+    top: 0;
+    z-index: 50;
+
+    background: rgba(13, 12, 17, 0.55);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+
+    border-bottom: 1px solid rgba(38, 35, 58, 0.8);
+
     padding: 0.75rem 1.5rem;
     display: flex;
     justify-content: space-between;
@@ -325,12 +393,56 @@
     text-decoration: underline;
   }
 
-  /* Main Content */
-  .main-content {
-    grid-column: 2;
-    padding: 2rem 3rem;
-    max-width: 800px;
-    justify-self: center;
+  /* ✅ NEW: layout spans content+sidebar columns */
+  .layout {
+    grid-column: 2 / 4;
+    display: grid;
+    grid-template-columns: minmax(0, 780px) 320px;
+    gap: 3rem;
+    padding: 2rem 1.5rem;
+    align-items: start;
+  }
+
+  .content {
+    min-width: 0;
+  }
+
+  /* ✅ Sticky sidebar */
+  .sidebar {
+    position: sticky;
+    top: 4.25rem; /* below header */
+    align-self: start;
+  }
+
+  .side-section {
+    margin-bottom: 1.5rem;
+  }
+
+  .side-title {
+    color: #6e6a86;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #26233a;
+    padding-bottom: 0.4rem;
+  }
+
+  .side-row {
+    color: #908caa;
+    padding: 0.35rem 0;
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+  }
+
+  .toc-link {
+    display: block;
+    color: #9ccfd8;
+    text-decoration: none;
+    padding: 0.25rem 0;
+  }
+
+  .toc-link:hover {
+    color: #ebbcba;
+    text-decoration: underline;
   }
 
   article {
@@ -379,6 +491,7 @@
     color: #9ccfd8;
     animation: blink 1s step-end infinite;
   }
+
   @keyframes blink {
     0%,
     50% {
@@ -462,7 +575,6 @@
     font-family: inherit;
   }
 
-  /* Experience Section */
   .experience-item {
     margin: 2rem 0;
     padding-bottom: 2rem;
@@ -523,19 +635,75 @@
   /* Responsive */
   @media (max-width: 1200px) {
     .page-wrapper {
-      grid-template-columns: 200px 1fr 240px;
+      grid-template-columns: 1fr minmax(0, 720px) 300px 1fr;
     }
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 980px) {
     .page-wrapper {
       grid-template-columns: 1fr;
     }
 
-    .main-content {
+    .layout {
       grid-column: 1;
-      padding: 2rem 1.5rem;
-      justify-self: start;
+      grid-template-columns: 1fr;
+      padding: 2rem 1.25rem;
+    }
+
+    .sidebar {
+      position: relative;
+      top: 0;
+    }
+  }
+
+  /* Sticky footer container */
+  /* Sticky footer with frosted glass */
+  .sticky-footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 30;
+
+    background: rgba(13, 12, 17, 0.6);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+
+    border-top: 1px solid rgba(38, 35, 58, 0.8);
+
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Footer links */
+  .post-footer-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0.75rem 0;
+    border-top: 1px solid #26233a;
+  }
+
+  /* Buttons */
+  .footer-chip {
+    background-color: #6c77ff;
+    color: #0d0c11;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 0.35rem 0.75rem;
+    font-family: inherit;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.15s ease;
+  }
+
+  /* Ensure content isn't hidden behind footer */
+  article {
+    padding-bottom: 4rem;
+  }
+
+  /* Mobile polish */
+  @media (max-width: 640px) {
+    .post-footer-links {
+      padding: 0.9rem 0;
     }
   }
 </style>
