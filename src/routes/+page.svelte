@@ -2,7 +2,7 @@
   let email = "your.email@example.com";
   let name = "Rahul";
   let title = "Software Engineer";
-  let location = "Gurgaon";
+  let location = "Gurgaon, India";
 
   const technologies1 = [
     "React",
@@ -56,7 +56,7 @@
         <span class="meta-text">#ahoy</span>
       </div>
       <div class="post-date">
-        Last updated November 8 2025, 10:29:00<br />
+        Last updated December 28 2025, 08:29:00<br />
         Approx. 2 minute read
       </div>
 
@@ -252,8 +252,8 @@
 
 <style>
   @font-face {
-    font-family: "Tamzen";
-    src: url("/Tamzen8x15r.ttf") format("truetype");
+    font-family: "MapleMono";
+    src: url("/MapleMono-NF-Base-Mono.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
   }
@@ -266,9 +266,9 @@
     margin: 0;
     padding: 0;
     background-color: #0d0c11;
-    color: #e0def4;
-    font-family: "Tamzen", ui-monospace, monospace;
-    font-size: 15px;
+    color: #d0d0d0;
+    font-family: "MapleMono", ui-monospace, monospace;
+    font-size: 14px;
     line-height: 1.6;
     overflow-x: hidden;
   }
@@ -305,7 +305,7 @@
   }
 
   .site-title {
-    color: #e0def4;
+    color: #d0d0d0;
     font-weight: normal;
   }
 
@@ -321,7 +321,7 @@
   }
 
   .header-nav a:hover {
-    color: #e0def4;
+    color: #d0d0d0;
     text-decoration: underline;
   }
 
@@ -394,13 +394,13 @@
     font-size: 1.5rem;
     font-weight: normal;
     margin: 1.5rem 0 1rem 0;
-    color: #e0def4;
+    color: #d0d0d0;
     line-height: 1.3;
   }
 
   h2 {
-    font-size: 1.2rem;
-    font-weight: normal;
+    font-size: 1.4rem;
+    font-weight: 600;
     margin: 2rem 0 1rem 0;
     color: #31748f;
     line-height: 1.3;
@@ -408,7 +408,7 @@
 
   p {
     margin: 0.75rem 0;
-    color: #e0def4;
+    color: #d0d0d0;
   }
 
   .highlight {
@@ -419,6 +419,7 @@
     color: #9ccfd8;
     text-decoration: none;
     transition: all 0.2s;
+    font-weight: 400;
   }
 
   a:hover {
@@ -488,7 +489,7 @@
     font-size: 1.3rem;
     font-weight: normal;
     margin: 0.5rem 0;
-    color: #e0def4;
+    color: #d0d0d0;
   }
 
   .company-info {
@@ -509,7 +510,7 @@
 
   .achievements li {
     margin: 0.5rem 0;
-    color: #e0def4;
+    color: #d0d0d0;
   }
 
   .tech-tags {
