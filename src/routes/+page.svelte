@@ -28,6 +28,99 @@
     "AWS EC2",
     "GitHub Actions",
   ];
+
+  import { onMount } from "svelte";
+
+  /**
+   * @type {string | null}
+   */
+  let viewerId = null;
+
+  let activeSiteWide = 0;
+  let activeThisPage = 0;
+  let totalViewsThisPage = 0;
+
+  // Rahul Online/Offline
+  let rahulOnline = false;
+
+  /**
+   * @type {number | undefined}
+   */
+  let heartbeatTimer;
+
+  function getIsOwner() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("me") === "1";
+  }
+
+  function getStoredViewerId() {
+    return localStorage.getItem("rb_viewer_id");
+  }
+
+  /**
+   * @param {string | null} id
+   */
+  function storeViewerId(id) {
+    if (!id) return;
+    localStorage.setItem("rb_viewer_id", id);
+  }
+
+  /**
+   * @param {string} pathname
+   */
+  function wasCountedForPath(pathname) {
+    return localStorage.getItem(`rb_counted:${pathname}`) === "1";
+  }
+
+  /**
+   * @param {string} pathname
+   */
+  function markCountedForPath(pathname) {
+    localStorage.setItem(`rb_counted:${pathname}`, "1");
+  }
+
+  async function pingPresence() {
+    const pathname = window.location.pathname;
+
+    // stable id across reloads
+    if (!viewerId) viewerId = getStoredViewerId();
+
+    // only count view once per browser per path
+    const shouldCountView = !wasCountedForPath(pathname);
+
+    const res = await fetch("/api/presence", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        path: pathname,
+        viewerId,
+        shouldCountView,
+        isOwner: getIsOwner(),
+      }),
+    });
+
+    if (!res.ok) return;
+
+    const data = await res.json();
+
+    viewerId = data.viewerId;
+    storeViewerId(viewerId);
+
+    activeSiteWide = data.activeSiteWide;
+    activeThisPage = data.activeThisPage;
+    totalViewsThisPage = data.totalViewsThisPage ?? totalViewsThisPage;
+
+    rahulOnline = data.ownerOnline === true;
+
+    // after server confirms, lock the "count once" flag
+    if (shouldCountView) markCountedForPath(pathname);
+  }
+
+  onMount(() => {
+    pingPresence();
+    heartbeatTimer = setInterval(pingPresence, 15_000);
+    return () => clearInterval(heartbeatTimer);
+  });
 </script>
 
 <svelte:head>
@@ -287,13 +380,13 @@
     <aside class="sidebar">
       <div class="side-section">
         <div class="side-title">▼ Presence</div>
-        <div class="side-row">• Rahul Offline</div>
+        <div class="side-row">• Rahul {rahulOnline ? "Online" : "Offline"}</div>
       </div>
 
       <div class="side-section">
         <div class="side-title">▼ Viewers</div>
-        <div class="side-row">• Site-wide: 4</div>
-        <div class="side-row">• This page: 2</div>
+        <div class="side-row">• Site-wide: {activeSiteWide}</div>
+        <div class="side-row">• This page: {activeThisPage}</div>
       </div>
 
       <div class="side-section">
