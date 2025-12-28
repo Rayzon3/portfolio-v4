@@ -402,6 +402,15 @@
 </div>
 
 <style>
+  :global(::selection) {
+    background: rgba(173, 118, 241, 0.35);
+    color: #d0d0d0;
+  }
+  :global(::-moz-selection) {
+    background: rgba(173, 118, 241, 0.35);
+    color: #d0d0d0;
+  }
+
   @font-face {
     font-family: "MapleMono";
     src: url("/MapleMono-NF-Base-Mono.ttf") format("truetype");
