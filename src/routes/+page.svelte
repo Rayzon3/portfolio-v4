@@ -1,5 +1,5 @@
 <script>
-  let email = "your.email@example.com";
+  let email = "rahul.03111999@gmail.com";
   let name = "Rahul";
   let title = "Software Engineer";
   let location = "Gurgaon, India";
@@ -47,6 +47,9 @@
    * @type {number | undefined}
    */
   let heartbeatTimer;
+
+  // ---- TOC active state ----
+  let activeSectionId = "hello";
 
   function getIsOwner() {
     const params = new URLSearchParams(window.location.search);
@@ -116,10 +119,73 @@
     if (shouldCountView) markCountedForPath(pathname);
   }
 
+  /**
+   * @param {string} id
+   */
+  function setActiveToc(id) {
+    activeSectionId = id;
+  }
+
   onMount(() => {
+    // --- presence ---
     pingPresence();
     heartbeatTimer = setInterval(pingPresence, 15_000);
-    return () => clearInterval(heartbeatTimer);
+
+    const handleScroll = () => {
+      if (window.scrollY <= 1) {
+        setActiveToc("hello");
+        return;
+      }
+
+      const { scrollHeight, clientHeight } = document.documentElement;
+      const nearBottom = window.scrollY + window.innerHeight >= scrollHeight - 2;
+
+      if (nearBottom) setActiveToc("contact");
+    };
+
+    // --- TOC observer ---
+    const ids = [
+      "hello",
+      "background",
+      "experience",
+      "blog-projects",
+      "contact",
+    ];
+
+    /** @type {HTMLElement[]} */
+    const sections = ids
+      .map((id) => document.getElementById(id))
+      .filter((el) => el !== null);
+
+    // initial highlight
+    setActiveToc(activeSectionId);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // pick best visible section
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visible?.target?.id) setActiveToc(visible.target.id);
+      },
+      {
+        // account for sticky header
+        root: null,
+        rootMargin: "-90px 0px -60% 0px",
+        threshold: [0.15, 0.25, 0.35, 0.5],
+      }
+    );
+
+    sections.forEach((el) => observer.observe(el));
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      clearInterval(heartbeatTimer);
+      observer.disconnect();
+      window.removeEventListener("scroll", handleScroll);
+    };
   });
 </script>
 
@@ -129,6 +195,7 @@
 </svelte:head>
 
 <div class="page-wrapper">
+  <div id="hello" class="toc-anchor" aria-hidden="true"></div>
   <!-- TOP HEADER (sticky + frosted) -->
   <header class="header">
     <div class="header-left">
@@ -157,19 +224,21 @@
           Approx. 2 minute read
         </div>
 
-        <p id="hello">Ahoy!! I'm <code class="inline-code">{name}</code>!</p>
+        <section>
+          <p>Ahoy!! I'm <code class="inline-code">{name}</code>!</p>
 
-        <p>
-          I'm currently a <code class="inline-code">{title}</code> based in
-          <span class="highlight">{location}</span>
-          trying to create great software experiences!
-        </p>
+          <p>
+            I'm currently a <code class="inline-code">{title}</code> based in
+            <span class="highlight">{location}</span>
+            trying to create great software experiences!
+          </p>
 
-        <p>I usually work with Typescript, NodeJs and React.</p>
+          <p>I usually work with Typescript, NodeJs and React.</p>
 
-        <p>
-          In my spare time I enjoy playing guitar, gaming and watching anime.
-        </p>
+          <p>
+            In my spare time I enjoy playing guitar, gaming and watching anime.
+          </p>
+        </section>
 
         <h2 id="background">Background</h2>
 
@@ -391,11 +460,40 @@
 
       <div class="side-section">
         <div class="side-title">▼ Table of Contents</div>
-        <a class="toc-link" href="#hello"># Hello, world!</a>
-        <a class="toc-link" href="#background">## Background</a>
-        <a class="toc-link" href="#experience">## Experience</a>
-        <a class="toc-link" href="#blog-projects">## Blog &amp; Projects</a>
-        <a class="toc-link" href="#contact">## Contact</a>
+        <a
+          class="toc-link"
+          class:active={activeSectionId === "hello"}
+          href="#hello"
+          data-toc="hello"
+        >
+          ## Hello, world!
+        </a>
+        <a
+          class="toc-link"
+          class:active={activeSectionId === "background"}
+          href="#background"
+          data-toc="background">## Background</a
+        >
+        <a
+          class="toc-link"
+          class:active={activeSectionId === "experience"}
+          href="#experience"
+          data-toc="experience">## Experience</a
+        >
+        <a
+          class="toc-link"
+          class:active={activeSectionId === "blog-projects"}
+          href="#blog-projects"
+          data-toc="blog-projects">## Blog &amp; Projects</a
+        >
+        <a
+          class="toc-link"
+          class:active={activeSectionId === "contact"}
+          href="#contact"
+          data-toc="contact"
+        >
+          ## Contact
+        </a>
       </div>
     </aside>
   </main>
@@ -409,6 +507,10 @@
   :global(::-moz-selection) {
     background: rgba(173, 118, 241, 0.35);
     color: #d0d0d0;
+  }
+
+  :global(html) {
+    scroll-behavior: smooth;
   }
 
   @font-face {
@@ -732,6 +834,18 @@
     flex-wrap: wrap;
     gap: 0.5rem;
     margin-top: 1rem;
+  }
+
+  .toc-link.active {
+    color: #ebbcba;
+    text-decoration: underline;
+  }
+  .toc-link.active::before {
+    color: #ebbcba;
+  }
+  .toc-anchor {
+    height: 1px;
+    width: 100%;
   }
 
   /* Responsive */
