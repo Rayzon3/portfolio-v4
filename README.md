@@ -1,38 +1,49 @@
-# sv
+# portfolio-v4
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Personal portfolio site built with SvelteKit. Includes a sticky TOC, presence
+tracking (site-wide + per-page), and a blog "coming soon" page.
 
-## Creating a project
+## Tech
 
-If you're seeing this, you've probably already done this step. Congrats!
+- SvelteKit + Svelte 5
+- Vite
+- TypeScript (typechecking via svelte-check)
 
-```sh
-# create a new project in the current directory
-npx sv create
+## Project Structure
 
-# create a new project in my-app
-npx sv create my-app
-```
+- `src/routes` - SvelteKit routes and API handlers
+- `src/lib/components` - shared UI components
+- `src/lib/data` - static data for the home page and navigation
+- `src/routes/api/presence` - presence endpoint used by the home page
 
-## Developing
+## Setup
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
+Install dependencies:
 
 ```sh
-npm run build
+pnpm install
 ```
 
-You can preview the production build with `npm run preview`.
+Start dev server:
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+```sh
+pnpm dev
+```
+
+Typecheck:
+
+```sh
+pnpm check
+```
+
+Build + preview:
+
+```sh
+pnpm build
+pnpm preview
+```
+
+## Notes
+
+- Static assets live in `static/`.
+- The home page polls `/api/presence` every 15 seconds.
