@@ -10,7 +10,10 @@
 <aside class="sidebar">
   <div class="side-section">
     <div class="side-title">▼ Presence</div>
-    <div class="side-row">• Rahul {rahulOnline ? "Online" : "Offline"}</div>
+    <div class="side-row">
+      • Rahul {rahulOnline ? "Online" : "Offline"}
+      <span class="presence-dot" class:online={rahulOnline}></span>
+    </div>
   </div>
 
   <div class="side-section">
@@ -58,6 +61,22 @@
     display: flex;
     gap: 0.6rem;
     align-items: center;
+  }
+
+  .presence-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #6e6a86;
+    display: inline-block;
+    margin-left: 0.25rem;
+    box-shadow: none;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .presence-dot.online {
+    background-color: #4ade80;
+    box-shadow: 0 0 6px rgba(74, 222, 128, 0.65);
   }
 
   .toc-link {
