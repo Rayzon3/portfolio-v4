@@ -32,16 +32,6 @@
     name="description"
     content="Rahul Bhardwaj is a software engineer building polished web applications, backend systems, and product interfaces."
   />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin="anonymous"
-  />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&display=swap"
-    rel="stylesheet"
-  />
 </svelte:head>
 
 <div class="page-shell">
