@@ -82,13 +82,6 @@
 </div>
 
 <style>
-  @font-face {
-    font-family: "MapleMono";
-    src: url("/MapleMono-NF-Base-Mono.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
-  }
-
   :global(*) {
     box-sizing: border-box;
   }
@@ -98,9 +91,9 @@
     padding: 0;
     background-color: #0d0c11;
     color: #d0d0d0;
-    font-family: "MapleMono", ui-monospace, monospace;
-    font-size: 14px;
-    line-height: 1.6;
+    font-family: "Instrument Sans", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
     overflow-x: hidden;
   }
 
@@ -144,7 +137,8 @@
 
   .site-title {
     color: #d0d0d0;
-    font-weight: normal;
+    font-family: "Instrument Serif", Georgia, serif;
+    font-weight: 400;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
