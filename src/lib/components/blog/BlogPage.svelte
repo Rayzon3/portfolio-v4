@@ -1,81 +1,80 @@
 <script>
-  import { onMount } from "svelte";
   import SiteHeader from "$lib/components/layout/SiteHeader.svelte";
-  import { navLinks } from "$lib/data/nav";
+  import { socialLinks } from "$lib/data/nav";
 
-  let dots = "";
-
-  onMount(() => {
-    const interval = setInterval(() => {
-      dots = dots.length >= 3 ? "" : dots + ".";
-    }, 500);
-
-    return () => clearInterval(interval);
-  });
+  const posts = [
+    {
+      date: "Jun 2026",
+      readTime: "4 min read",
+      title: "Notes on building fast web interfaces",
+      summary: "Practical patterns from React, Svelte, and server-backed UI work.",
+      tags: ["Frontend", "Performance"],
+    },
+    {
+      date: "Jun 2026",
+      readTime: "5 min read",
+      title: "Systems I want to understand better",
+      summary: "A running list across backend architecture, compilers, and tooling.",
+      tags: ["Systems", "Learning"],
+    },
+  ];
 </script>
 
 <svelte:head>
-  <title>Blog - Coming Soon</title>
+  <title>Writing - Rahul Bhardwaj</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap"
+    rel="stylesheet"
+  />
 </svelte:head>
 
-<div class="page-wrapper">
-  <SiteHeader links={navLinks} />
+<div class="page-shell">
+  <SiteHeader links={socialLinks} sticky />
 
-  <main class="main-content">
-    <article class="coming-soon">
-      <div class="ascii-art">
-        <pre>{`
-    ____  __    ____  ______
-   / __ )/ /   / __ \\/ ____/
-  / __  / /   / / / / / __  
- / /_/ / /___/ /_/ / /_/ /  
-/_____/_____/\\____/\\____/   
-        `}</pre>
+  <main class="content-shell">
+    <section class="writing">
+      <div class="section-heading">
+        <h1>Writing</h1>
+        <a href="/">Home</a>
       </div>
 
-      <h1>Coming Soon<span class="animated-dots">{dots}</span></h1>
+      <div class="rows">
+        {#each posts as post}
+          <article class="row">
+            <div class="row-meta">
+              <span>{post.date}</span>
+              <span>{post.readTime}</span>
+            </div>
 
-      <div class="status-box">
-        <div class="status-line">
-          <span class="status-label">[STATUS]</span>
-          <span class="status-value">Under Construction</span>
-        </div>
-        <div class="status-line">
-          <span class="status-label">[ETA]</span>
-          <span class="status-value">Soon™</span>
-        </div>
-        <div class="status-line">
-          <span class="status-label">[PROGRESS]</span>
-          <span class="status-value">
-            <span class="progress-bar">
-              <span class="progress-fill"></span>
-            </span>
-            <span class="progress-text">42%</span>
-          </span>
-        </div>
+            <div class="row-main">
+              <h2>{post.title}</h2>
+              <p>{post.summary}</p>
+              <div class="tags">
+                {#each post.tags as tag}
+                  <span>{tag}</span>
+                {/each}
+              </div>
+            </div>
+
+            <span class="row-arrow" aria-hidden="true">→</span>
+          </article>
+        {/each}
       </div>
-
-      <p class="message">
-        In the meantime, feel free to check out my <a href="/">about page</a> or
-        explore my
-        <a href="https://github.com/Rayzon3" target="_blank" rel="noopener"
-          >projects on GitHub</a
-        >!
-      </p>
-
-      <div>
-        <a href="/">Back</a>
-      </div>
-    </article>
+    </section>
   </main>
 </div>
 
 <style>
-  @font-face {
-    font-family: "Tamzen";
-    src: url("/Tamzen7x13r.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
+  :global(:root) {
+    --bg: #0f0e13;
+    --text: #f4f1f4;
+    --soft: #b7b1bb;
+    --muted: #918895;
+    --accent: #e99fc7;
+    --border: rgba(145, 136, 149, 0.2);
+    --border-strong: rgba(145, 136, 149, 0.34);
   }
 
   :global(*) {
@@ -84,114 +83,143 @@
 
   :global(body) {
     margin: 0;
-    padding: 0;
-    background-color: #0d0c11;
-    color: #e0def4;
-    font-family: "Tamzen", ui-monospace, monospace;
-    font-size: 14px;
-    line-height: 1.6;
-    overflow-x: hidden;
+    background: #07060a;
+    color: var(--text);
+    font-family: "Instrument Sans", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
   }
 
-  .page-wrapper {
-    --header-bg: #0d0c11;
-    --header-border: none;
-    --header-title-color: #e0def4;
-    --header-link: #908caa;
-    --header-link-hover: #e0def4;
-    --header-dot: #9ccfd8;
-    --header-cursor: #9ccfd8;
-
-    display: grid;
-    grid-template-columns: 280px 1fr 280px;
-    grid-template-rows: auto 1fr;
+  .page-shell {
     min-height: 100vh;
-    gap: 0;
+    background: var(--bg);
+    border: 1px solid rgba(79, 72, 103, 0.5);
+    border-radius: 8px;
+    overflow: clip;
   }
 
-  /* Main Content */
-  .main-content {
-    grid-column: 2;
-    padding: 2rem 3rem;
-    max-width: 800px;
-    justify-self: center;
+  .content-shell {
+    width: min(100% - 2rem, 1120px);
+    margin: 0 auto;
   }
 
-  .coming-soon {
-    text-align: center;
+  .writing {
+    min-height: calc(100vh - 83px);
+    padding: clamp(4.5rem, 10vw, 8rem) 0;
   }
 
-  .ascii-art {
-    color: #f6c177;
-    margin-bottom: 2rem;
+  .section-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 3rem;
   }
 
-  .ascii-art pre {
-    font-family: "Tamzen", ui-monospace, monospace;
-    font-size: 14px;
-    line-height: 1.2;
+  h1,
+  h2,
+  p {
+    margin: 0;
   }
 
   h1 {
-    font-size: 2.5rem;
-    margin: 1rem 0 2rem;
-    color: #c4a7e7;
+    color: var(--text);
+    font-size: clamp(2.8rem, 5.9vw, 4.6rem);
+    font-weight: 700;
+    line-height: 0.95;
   }
 
-  .animated-dots {
-    display: inline-block;
-    min-width: 2ch;
+  a {
+    color: var(--accent);
+    font-size: 0.9rem;
+    text-decoration-color: rgba(233, 159, 199, 0.55);
+    text-underline-offset: 0.16em;
   }
 
-  .status-box {
-    margin: 2rem auto;
-    max-width: 400px;
-    padding: 1.5rem;
-    border: 1px solid #3e3a59;
-    background: rgba(20, 19, 32, 0.8);
-    text-align: left;
+  a:hover {
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: currentColor;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
   }
 
-  .status-line {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.75rem;
+  .rows {
+    border-top: 1px solid var(--border);
   }
 
-  .status-label {
-    color: #9ccfd8;
+  .row {
+    display: grid;
+    grid-template-columns: minmax(150px, 0.25fr) minmax(0, 1fr) auto;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: start;
+    padding: 2.1rem 0;
+    border-bottom: 1px solid var(--border);
   }
 
-  .status-value {
-    color: #e0def4;
+  .row-meta {
+    color: var(--muted);
+    font-size: 0.84rem;
+    line-height: 1.3;
   }
 
-  .progress-bar {
-    display: inline-block;
-    width: 100px;
-    height: 10px;
-    background: #26233a;
-    margin-right: 0.5rem;
-  }
-
-  .progress-fill {
+  .row-meta span {
     display: block;
-    width: 42%;
-    height: 100%;
-    background: #f6c177;
   }
 
-  .message {
-    margin: 2rem 0;
-    color: #908caa;
+  .row-main h2 {
+    color: var(--text);
+    font-size: clamp(1.12rem, 1.7vw, 1.55rem);
+    font-weight: 700;
+    line-height: 1.05;
   }
 
-  .message a {
-    color: #9ccfd8;
-    text-decoration: none;
+  .row-main p {
+    margin-top: 0.7rem;
+    color: var(--soft);
+    font-size: clamp(0.92rem, 1.08vw, 1.05rem);
+    line-height: 1.35;
   }
 
-  .message a:hover {
-    text-decoration: underline;
+  .row-arrow {
+    color: var(--muted);
+    font-size: 1.3rem;
+    line-height: 1;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin-top: 1.15rem;
+  }
+
+  .tags span {
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    padding: 0.1rem 0.55rem 0.18rem;
+    color: var(--muted);
+    font-size: 0.74rem;
+    line-height: 1.2;
+  }
+
+  @media (max-width: 760px) {
+    .section-heading {
+      display: block;
+    }
+
+    .section-heading a {
+      display: inline-block;
+      margin-top: 1rem;
+    }
+
+    .row {
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+    }
+
+    .row-meta {
+      grid-column: 1 / -1;
+    }
   }
 </style>

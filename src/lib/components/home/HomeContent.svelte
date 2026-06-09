@@ -1,380 +1,432 @@
 <script>
   import { experiences, profile, stackList } from "$lib/data/home";
+
+  const highlights = [
+    "TypeScript",
+    "Node.js",
+    "React",
+    "Svelte",
+    "Elixir",
+    "Go",
+  ];
+
+  const projects = [
+    {
+      title: "AI Incident Commander",
+      href: "https://github.com/Rayzon3/incidentCommander",
+      stack: ["Elixir", "Phoenix LiveView", "Python", "FastAPI", "pgvector"],
+      summary:
+        "Agentic incident diagnosis platform with realtime dashboards, async event pipelines, log summarization, root-cause analysis, vector embeddings, and RAG-based incident similarity search.",
+    },
+    {
+      title: "Real-Time Collaboration Platform",
+      href: "https://github.com/Rayzon3/jabber_v3",
+      stack: ["React", "TypeScript", "Node.js", "WebSockets", "Kubernetes"],
+      summary:
+        "Realtime collaboration system with scalable WebSocket communication, concurrent synchronization, reusable React components, and optimized shared-state patterns.",
+    },
+    {
+      title: "A* Algorithm Visualizer",
+      href: "https://github.com/Rayzon3/pathfinder",
+      stack: ["TypeScript", "Next.js", "Tailwind CSS"],
+      summary:
+        "Interactive pathfinding visualizer with optimized rendering and animated traversal updates for exploring A* search behavior.",
+    },
+  ];
 </script>
 
-<section class="content">
-  <article>
-    <div class="post-meta">
-      <span class="label">Hello, world!</span>
-      <span class="meta-text">#ahoy</span>
+<section class="hero" aria-labelledby="intro-title">
+  <div class="hero-copy">
+    <h1 id="intro-title">{profile.name} Bhardwaj</h1>
+
+    <p class="lede">
+      Software engineer building practical, polished software across web
+      applications and backend systems.
+    </p>
+
+    <p class="intro">
+      I am a {profile.title} based in <a href="#contact">{profile.location}</a>.
+      I work mostly with <span class="inline-accent-teal">TypeScript</span>,
+      <span class="inline-accent-teal">Node.js</span>,
+      <span class="inline-accent-teal">React</span>, and
+      <span class="inline-accent-teal">Svelte</span>, with a growing interest
+      in <span class="inline-accent-teal">Elixir</span>,
+      <span class="inline-accent-teal">Go</span>, and low-level programming.
+    </p>
+
+    <div class="quick-links" aria-label="Portfolio sections">
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#writing">Writing</a>
+      <a href="#contact">Contact</a>
     </div>
-    <div class="post-date">
-      Last updated December 28 2025, 08:29:00<br />
-      Approx. 2 minute read
-    </div>
+  </div>
+</section>
 
-    <section>
-      <p>
-        Ahoy!! I'm <code class="inline-code">{profile.name}</code>!
-      </p>
+<section id="experience" class="section-block">
+  <div class="section-heading">
+    <h2>Experience</h2>
+  </div>
 
-      <p>
-        I'm currently a <code class="inline-code">{profile.title}</code> based in
-        <span class="highlight">{profile.location}</span>
-        trying to create great software experiences!
-      </p>
-
-      <p>I usually work with Typescript, NodeJs and React.</p>
-
-      <p>In my spare time I enjoy playing guitar, gaming and watching anime.</p>
-    </section>
-
-    <h2 id="background">Background</h2>
-
-    <p>
-      I'm a self-taught developer who started programming in high school.
-      Initially i was interested in making games(did make a few in godot and
-      pygame).
-    </p>
-
-    <p>
-      My passion for game dev is still alive and am improving my pixel art
-      skills!
-    </p>
-
-    <p>
-      In all these years i have dabbled in a variety of languages and
-      frameworks, primarily focused on web development or systems programming.
-    </p>
-
-    <p>Nowadays, my go-to tech stack includes:</p>
-
-    <ul>
-      {#each stackList as item}
-        <li>{item}</li>
-      {/each}
-    </ul>
-
-    <p>
-      I've been a longtime member of the ricing community, which still
-      regularly inspires me to optimize my workflow and environment.
-    </p>
-
-    <h2 id="experience">Experience</h2>
-
+  <div class="rows">
     {#each experiences as experience}
-      <div class="experience-item">
-        <div class="experience-header">
-          <div class="experience-period">
-            <span>{experience.period}</span>
+      <article class="row">
+        <div class="row-meta">
+          <span>{experience.period}</span>
+          <span>{experience.company}</span>
+        </div>
+
+        <div class="row-main">
+          <h3>{experience.role}</h3>
+          <p>{experience.achievements[0]}</p>
+
+          <div class="tags" aria-label={`${experience.company} technologies`}>
+            {#each experience.tech.slice(0, 6) as tech}
+              <span>{tech}</span>
+            {/each}
           </div>
         </div>
 
-        <h3 class="job-title">{experience.role}</h3>
-        <div class="company-info">
-          <span class="company-name">{experience.company}</span>
-        </div>
-
-        <ul class="achievements">
-          {#each experience.achievements as achievement}
-            <li>{achievement}</li>
-          {/each}
-        </ul>
-
-        <div class="tech-tags">
-          {#each experience.tech as tech}
-            <code class="inline-code-tech_tag">{tech}</code>
-          {/each}
-        </div>
-      </div>
+        <span class="row-arrow" aria-hidden="true">→</span>
+      </article>
     {/each}
+  </div>
+</section>
 
-    <h2 id="blog-projects">Blog &amp; Projects</h2>
+<section id="projects" class="section-block">
+  <div class="section-heading">
+    <h2>Projects</h2>
+    <a href="https://github.com/Rayzon3" target="_blank" rel="noopener">
+      GitHub
+    </a>
+  </div>
 
-    <p>
-      You can check out my writings on various topics on my <a href="/blog"
-        >blog</a
-      >.
-    </p>
-
-    <p>
-      You can additionally see a list of <a href="https://github.com/Rayzon3"
-        >projects</a
+  <div class="rows compact">
+    {#each projects as project}
+      <a
+        class="row project-row"
+        href={project.href}
+        target="_blank"
+        rel="noopener"
       >
-      I've worked on or contributed to.
-    </p>
+        <div class="row-meta">
+          <span>Project</span>
+          <span>{project.stack.slice(0, 2).join(" / ")}</span>
+        </div>
 
-    <h2 id="contact">Contact</h2>
+        <div class="row-main">
+          <h3>{project.title}</h3>
+          <p>{project.summary}</p>
 
-    <p>
-      I try to go by <code class="inline-code">Rayzon</code> on most platforms,
-      you can find me on:
-    </p>
+          <div class="tags" aria-label={`${project.title} technologies`}>
+            {#each project.stack as tech}
+              <span>{tech}</span>
+            {/each}
+          </div>
+        </div>
 
-    <ul>
-      <li>
-        <a href="https://github.com/Rayzon3" target="_blank" rel="noopener"
-          >GitHub</a
-        >
-      </li>
-      <li>
-        <a href="https://x.com/BlackKatana9" target="_blank" rel="noopener"
-          >Twitter</a
-        >
-      </li>
-    </ul>
+        <span class="row-arrow" aria-hidden="true">→</span>
+      </a>
+    {/each}
+  </div>
+</section>
 
-    <p>
-      In cases where <code class="inline-code">Rayzon</code> is not available,
-      you can find me here:
-    </p>
+<section id="writing" class="section-block">
+  <div class="section-heading">
+    <h2>Writing</h2>
+  </div>
 
-    <ul>
-      <li>
-        <a
-          href="https://linkedin.com/in/rahulbhardwaj03"
-          target="_blank"
-          rel="noopener">LinkedIn</a
-        >
-      </li>
-    </ul>
-
-    <p>
-      Feel free to reach out to me via
-      <a href="mailto:{profile.email}">email</a> or any of the platforms above
-      if you want to chat!
-    </p>
-
-    <div class="sticky-footer">
-      <div class="post-footer-links">
-        <a href="/rss.xml" class="footer-chip" target="_blank" rel="noopener">
-          RSS
-        </a>
-
-        <a
-          href="https://github.com/Rayzon3/portfolio-v4"
-          class="footer-chip"
-          target="_blank"
-          rel="noopener"
-        >
-          Source
-        </a>
+  <div class="rows">
+    <div class="row writing-placeholder">
+      <div class="row-meta">
+        <span>Writing</span>
+        <span>In progress</span>
       </div>
+
+      <div class="row-main">
+        <h3>Coming soon</h3>
+        <p>
+          Essays, engineering notes, and technical write-ups are on the way.
+        </p>
+      </div>
+
+      <span class="row-arrow" aria-hidden="true">…</span>
     </div>
-  </article>
+  </div>
+</section>
+
+<section id="contact" class="section-block contact-block">
+  <div class="section-heading">
+    <h2>Contact</h2>
+  </div>
+
+  <p>
+    I go by <span>Rayzon</span> around the web. Reach me by
+    <a href="mailto:{profile.email}">email</a>, or find me on
+    <a href="https://github.com/Rayzon3" target="_blank" rel="noopener"
+      >GitHub</a
+    >,
+    <a
+      href="https://linkedin.com/in/rahulbhardwaj03"
+      target="_blank"
+      rel="noopener"
+    >
+      LinkedIn
+    </a>, and
+    <a href="https://x.com/BlackKatana9" target="_blank" rel="noopener">X</a>.
+  </p>
+
+  <div class="highlight-strip" aria-label="Core skills">
+    {#each highlights as item}
+      <span>{item}</span>
+    {/each}
+  </div>
 </section>
 
 <style>
-  .content {
-    min-width: 0;
+  .hero {
+    min-height: calc(100vh - 83px);
+    display: grid;
+    align-items: center;
+    padding: clamp(5rem, 12vh, 9rem) 0 clamp(6rem, 14vh, 10rem);
   }
 
-  article {
-    animation: fadeIn 0.3s ease-in;
-    padding-bottom: 4rem;
+  .hero-copy {
+    max-width: 900px;
   }
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(5px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .post-meta {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .label {
-    background-color: #31748f;
-    color: #191724;
-    padding: 0.15rem 0.5rem;
-    font-size: 12px;
-    font-weight: bold;
-  }
-
-  .meta-text {
-    color: #9ccfd8;
-    font-size: 12px;
-    font-style: italic;
-  }
-
-  .post-date {
-    color: #6e6a86;
-    font-size: 12px;
-    margin-bottom: 2rem;
-    line-height: 1.4;
-  }
-
-  h3 {
-    font-size: 1.5rem;
-    font-weight: normal;
-    margin: 1.5rem 0 1rem 0;
-    color: #d0d0d0;
-    line-height: 1.3;
-  }
-
-  h2 {
-    font-size: 1.4rem;
-    font-weight: 600;
-    margin: 2rem 0 1rem 0;
-    color: #31748f;
-    line-height: 1.3;
-  }
-
+  h1,
+  h2,
+  h3,
   p {
-    margin: 0.75rem 0;
-    color: #d0d0d0;
+    margin: 0;
   }
 
-  .highlight {
-    color: #c4a7e7;
+  h1 {
+    color: var(--text);
+    font-family: "Instrument Serif", Georgia, serif;
+    font-size: clamp(3.4rem, 8.5vw, 7rem);
+    font-weight: 400;
+    line-height: 0.88;
+    letter-spacing: 0;
+  }
+
+  .lede {
+    max-width: 760px;
+    margin-top: 2rem;
+    padding-left: 1.35rem;
+    border-left: 2px solid var(--accent);
+    color: var(--muted);
+    font-family: "Instrument Serif", Georgia, serif;
+    font-size: clamp(1.35rem, 2.35vw, 2.2rem);
+    font-style: italic;
+    line-height: 1.04;
+  }
+
+  .intro {
+    max-width: 840px;
+    margin-top: 4.5rem;
+    color: var(--soft);
+    font-size: clamp(1rem, 1.35vw, 1.3rem);
+    line-height: 1.42;
+  }
+
+  .inline-accent-teal {
+    color: #73c7c7;
+    text-decoration-line: underline;
+    text-decoration-color: rgba(115, 199, 199, 0.7);
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.16em;
   }
 
   a {
-    color: #9ccfd8;
-    text-decoration: none;
-    transition: all 0.2s;
-    font-weight: 400;
+    color: var(--accent);
+    text-decoration-color: rgba(233, 159, 199, 0.55);
+    text-underline-offset: 0.16em;
   }
 
-  a:hover {
-    color: #ebbcba;
-    text-decoration: underline;
+  a:not(.row):hover {
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: currentColor;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
   }
 
-  ul {
-    list-style: none;
-    padding-left: 0;
-    margin: 0.75rem 0;
-  }
-
-  li {
-    padding: 0.2rem 0;
-    padding-left: 1.2rem;
-    position: relative;
-  }
-
-  li::before {
-    content: "•";
-    position: absolute;
-    left: 0;
-    color: #908caa;
-  }
-
-  .inline-code {
-    background-color: #26233a;
-    color: #ec6f93;
-    padding: 0.1rem 0.3rem;
-    font-size: 0.95em;
-    font-family: inherit;
-  }
-
-  .inline-code-tech_tag {
-    background-color: #26233a;
-    color: #ea9a97;
-    padding: 0.1rem 0.3rem;
-    font-size: 0.95em;
-    font-family: inherit;
-  }
-
-  .experience-item {
-    margin: 2rem 0;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid #26233a;
-  }
-
-  .experience-item:last-of-type {
-    border-bottom: none;
-  }
-
-  .experience-header {
-    margin-bottom: 0.75rem;
-  }
-
-  .experience-period {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #6e6a86;
-    font-size: 13px;
-  }
-
-  .job-title {
-    font-size: 1.3rem;
-    font-weight: normal;
-    margin: 0.5rem 0;
-    color: #d0d0d0;
-  }
-
-  .company-info {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .company-name {
-    color: #9ccfd8;
-    font-weight: normal;
-  }
-
-  .achievements {
-    margin: 1rem 0;
-  }
-
-  .achievements li {
-    margin: 0.5rem 0;
-    color: #d0d0d0;
-  }
-
-  .tech-tags {
+  .quick-links {
+    margin-top: 3rem;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 1rem;
+    gap: 1.6rem;
+    color: var(--muted);
+    font-size: 0.95rem;
   }
 
-  .sticky-footer {
-    position: sticky;
-    bottom: 0;
-    z-index: 30;
-    background: rgba(13, 12, 17, 0.6);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
-    border-top: 1px solid rgba(38, 35, 58, 0.8);
-    padding-bottom: env(safe-area-inset-bottom);
-  }
-
-  .post-footer-links {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.75rem 0;
-    border-top: 1px solid #26233a;
-  }
-
-  .footer-chip {
-    background-color: #6c77ff;
-    color: #0d0c11;
-    font-size: 12px;
-    font-weight: 700;
-    padding: 0.35rem 0.75rem;
-    font-family: inherit;
+  .quick-links a {
+    color: var(--muted);
     text-decoration: none;
-    border-radius: 2px;
-    transition: all 0.15s ease;
   }
 
-  @media (max-width: 640px) {
-    .post-footer-links {
-      padding: 0.9rem 0;
+  .quick-links a:hover {
+    color: var(--accent);
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: currentColor;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
+  }
+
+  .section-block {
+    padding: clamp(4.5rem, 10vw, 8rem) 0;
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 2.75rem;
+  }
+
+  h2 {
+    color: var(--text);
+    font-size: clamp(2.35rem, 4.3vw, 3.9rem);
+    font-weight: 700;
+    line-height: 0.98;
+  }
+
+  .section-heading > a {
+    font-size: 0.95rem;
+  }
+
+  .rows {
+    border-top: 1px solid var(--border);
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: minmax(150px, 0.28fr) minmax(0, 1fr) auto;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: start;
+    padding: 2.05rem 0;
+    border-bottom: 1px solid var(--border);
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .row-meta {
+    color: var(--muted);
+    font-size: 0.84rem;
+    line-height: 1.3;
+  }
+
+  .row-meta span {
+    display: block;
+  }
+
+  .row-main h3 {
+    color: var(--text);
+    font-size: clamp(1.12rem, 1.7vw, 1.55rem);
+    font-weight: 700;
+    line-height: 1.05;
+  }
+
+  .row-main p {
+    margin-top: 0.7rem;
+    color: var(--soft);
+    font-size: clamp(0.92rem, 1.08vw, 1.05rem);
+    line-height: 1.35;
+  }
+
+  .row-arrow {
+    color: var(--muted);
+    font-size: 1.3rem;
+    line-height: 1;
+    transition:
+      color 160ms ease,
+      transform 160ms ease;
+  }
+
+  a.row:hover .row-arrow,
+  .row:hover .row-arrow {
+    color: var(--accent);
+    transform: translateX(0.25rem);
+  }
+
+  .tags,
+  .highlight-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+
+  .tags {
+    margin-top: 1.15rem;
+  }
+
+  .tags span,
+  .highlight-strip span {
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    padding: 0.1rem 0.55rem 0.18rem;
+    color: var(--muted);
+    font-size: 0.74rem;
+    line-height: 1.2;
+  }
+
+  .compact .row-main p {
+    margin-top: 0.45rem;
+  }
+
+  .contact-block p {
+    max-width: 870px;
+    color: var(--soft);
+    font-size: clamp(1rem, 1.45vw, 1.3rem);
+    line-height: 1.42;
+  }
+
+  .contact-block p span {
+    color: var(--text);
+  }
+
+  .highlight-strip {
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 760px) {
+    .hero {
+      min-height: auto;
+      padding-top: 4.5rem;
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 14vw, 4.5rem);
+    }
+
+    .lede {
+      margin-top: 1.6rem;
+    }
+
+    .intro {
+      margin-top: 3rem;
+    }
+
+    .section-heading {
+      display: block;
+    }
+
+    .section-heading > a {
+      display: inline-block;
+      margin-top: 1rem;
+    }
+
+    .row {
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+    }
+
+    .row-meta {
+      grid-column: 1 / -1;
     }
   }
 </style>

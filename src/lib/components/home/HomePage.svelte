@@ -2,265 +2,184 @@
   import { onMount } from "svelte";
   import SiteHeader from "$lib/components/layout/SiteHeader.svelte";
   import HomeContent from "$lib/components/home/HomeContent.svelte";
-  import HomeSidebar from "$lib/components/home/HomeSidebar.svelte";
-  import { tocItems } from "$lib/data/home";
-  import { navLinks } from "$lib/data/nav";
+  import { socialLinks } from "$lib/data/nav";
 
-  /**
-   * @type {string | null}
-   */
-  let viewerId = null;
-
-  let activeSiteWide = 0;
-  let activeThisPage = 0;
-  let totalViewsThisPage = 0;
-
-  // Rahul Online/Offline
-  let rahulOnline = false;
-
-  /**
-   * @type {number | undefined}
-   */
-  let heartbeatTimer;
-
-  // ---- TOC active state ----
-  let activeSectionId = "hello";
-
-  function getIsOwner() {
-    const params = new URLSearchParams(window.location.search);
-    return params.get("me") === "1";
-  }
-
-  function getStoredViewerId() {
-    return localStorage.getItem("rb_viewer_id");
-  }
-
-  /**
-   * @param {string | null} id
-   */
-  function storeViewerId(id) {
-    if (!id) return;
-    localStorage.setItem("rb_viewer_id", id);
-  }
-
-  /**
-   * @param {string} pathname
-   */
-  function wasCountedForPath(pathname) {
-    return localStorage.getItem(`rb_counted:${pathname}`) === "1";
-  }
-
-  /**
-   * @param {string} pathname
-   */
-  function markCountedForPath(pathname) {
-    localStorage.setItem(`rb_counted:${pathname}`, "1");
-  }
-
-  async function pingPresence() {
-    const pathname = window.location.pathname;
-
-    // stable id across reloads
-    if (!viewerId) viewerId = getStoredViewerId();
-
-    // only count view once per browser per path
-    const shouldCountView = !wasCountedForPath(pathname);
-
-    const res = await fetch("/api/presence", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
-        path: pathname,
-        viewerId,
-        shouldCountView,
-        isOwner: getIsOwner(),
-      }),
-    });
-
-    if (!res.ok) return;
-
-    const data = await res.json();
-
-    viewerId = data.viewerId;
-    storeViewerId(viewerId);
-
-    activeSiteWide = data.activeSiteWide;
-    activeThisPage = data.activeThisPage;
-    totalViewsThisPage = data.totalViewsThisPage ?? totalViewsThisPage;
-
-    rahulOnline = data.ownerOnline === true;
-
-    // after server confirms, lock the "count once" flag
-    if (shouldCountView) markCountedForPath(pathname);
-  }
-
-  /**
-   * @param {string} id
-   */
-  function setActiveToc(id) {
-    activeSectionId = id;
-  }
+  let showHeaderTitle = false;
 
   onMount(() => {
-    // --- presence ---
-    pingPresence();
-    heartbeatTimer = setInterval(pingPresence, 15_000);
+    const hero = document.querySelector(".hero");
+    if (!(hero instanceof HTMLElement)) return;
 
-    const handleScroll = () => {
-      if (window.scrollY <= 1) {
-        setActiveToc("hello");
-        return;
-      }
-
-      const { scrollHeight } = document.documentElement;
-      const nearBottom = window.scrollY + window.innerHeight >= scrollHeight - 2;
-
-      if (nearBottom) setActiveToc("contact");
+    const updateHeaderTitle = () => {
+      const headerHeight = window.innerWidth <= 640 ? 70 : 82;
+      showHeaderTitle = hero.getBoundingClientRect().bottom <= headerHeight;
     };
 
-    // --- TOC observer ---
-    const ids = tocItems.map((item) => item.id);
-
-    /** @type {HTMLElement[]} */
-    const sections = ids
-      .map((id) => document.getElementById(id))
-      .filter((el) => el !== null);
-
-    // initial highlight
-    setActiveToc(activeSectionId);
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        // pick best visible section
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
-        if (visible?.target?.id) setActiveToc(visible.target.id);
-      },
-      {
-        // account for sticky header
-        root: null,
-        rootMargin: "-90px 0px -60% 0px",
-        threshold: [0.15, 0.25, 0.35, 0.5],
-      }
-    );
-
-    sections.forEach((el) => observer.observe(el));
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
+    updateHeaderTitle();
+    window.addEventListener("scroll", updateHeaderTitle, { passive: true });
+    window.addEventListener("resize", updateHeaderTitle);
 
     return () => {
-      clearInterval(heartbeatTimer);
-      observer.disconnect();
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", updateHeaderTitle);
+      window.removeEventListener("resize", updateHeaderTitle);
     };
   });
 </script>
 
 <svelte:head>
-  <title>Ahoy!</title>
-  <link rel="icon" type="image/png" href="/IMG_3603.png" />
+  <title>Rahul Bhardwaj</title>
+  <meta
+    name="description"
+    content="Rahul Bhardwaj is a software engineer building polished web applications, backend systems, and product interfaces."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin="anonymous"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&display=swap"
+    rel="stylesheet"
+  />
 </svelte:head>
 
-<div class="page-wrapper">
-  <div id="hello" class="toc-anchor" aria-hidden="true"></div>
-  <SiteHeader links={navLinks} sticky />
+<div class="page-shell">
+  <SiteHeader links={socialLinks} sticky showTitle={showHeaderTitle} />
 
-  <main class="layout">
+  <main class="content-shell">
     <HomeContent />
-    <HomeSidebar
-      {rahulOnline}
-      {activeSiteWide}
-      {activeThisPage}
-      {activeSectionId}
-    />
   </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <!-- <p>© 2026 Rahul Bhardwaj</p> -->
+      <nav aria-label="Footer">
+        <a href="mailto:rahul.03111999@gmail.com">Email</a>
+        <a href="https://github.com/Rayzon3" target="_blank" rel="noopener"
+          >GitHub</a
+        >
+        <a
+          href="https://linkedin.com/in/rahulbhardwaj03"
+          target="_blank"
+          rel="noopener">LinkedIn</a
+        >
+        <a href="https://x.com/BlackKatana9" target="_blank" rel="noopener">X</a
+        >
+        <a href="/rss.xml" target="_blank" rel="noopener">RSS</a>
+      </nav>
+    </div>
+  </footer>
 </div>
 
 <style>
+  :global(:root) {
+    --bg: #0f0e13;
+    --panel: #121017;
+    --text: #f4f1f4;
+    --soft: #b7b1bb;
+    --muted: #918895;
+    --accent: #e99fc7;
+    --border: rgba(145, 136, 149, 0.2);
+    --border-strong: rgba(145, 136, 149, 0.34);
+  }
+
   :global(::selection) {
-    background: rgba(173, 118, 241, 0.35);
-    color: #d0d0d0;
-  }
-  :global(::-moz-selection) {
-    background: rgba(173, 118, 241, 0.35);
-    color: #d0d0d0;
-  }
-
-  :global(html) {
-    scroll-behavior: smooth;
-  }
-
-  @font-face {
-    font-family: "MapleMono";
-    src: url("/MapleMono-NF-Base-Mono.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
+    background: rgba(233, 159, 199, 0.32);
+    color: var(--text);
   }
 
   :global(*) {
     box-sizing: border-box;
   }
 
+  :global(html) {
+    scroll-behavior: smooth;
+    background: #07060a;
+  }
+
   :global(body) {
     margin: 0;
-    padding: 0;
-    background-color: #0d0c11;
-    color: #d0d0d0;
-    font-family: "MapleMono", ui-monospace, monospace;
-    font-size: 14px;
-    line-height: 1.6;
+    min-width: 320px;
+    background: #07060a;
+    color: var(--text);
+    font-family: "Instrument Sans", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
     overflow-x: hidden;
   }
 
-  .page-wrapper {
-    --header-bg: rgba(13, 12, 17, 0.55);
-    --header-border: 1px solid rgba(38, 35, 58, 0.8);
-    --header-backdrop: blur(12px);
-    --header-title-color: #d0d0d0;
-    --header-link: #908caa;
-    --header-link-hover: #d0d0d0;
-    --header-dot: #9ccfd8;
-    --header-cursor: #9ccfd8;
+  :global(button),
+  :global(input),
+  :global(textarea),
+  :global(select) {
+    font: inherit;
+  }
 
+  .page-shell {
     min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr minmax(0, 780px) 320px 1fr;
-    grid-template-rows: auto 1fr;
-    gap: 0;
+    background: var(--bg);
+    border: 1px solid rgba(79, 72, 103, 0.5);
+    border-radius: 8px;
+    overflow: clip;
   }
 
-  .layout {
-    grid-column: 2 / 4;
-    display: grid;
-    grid-template-columns: minmax(0, 780px) 320px;
-    gap: 3rem;
-    padding: 2rem 1.5rem;
-    align-items: start;
+  .content-shell {
+    width: min(100% - 2rem, 1120px);
+    margin: 0 auto;
   }
 
-  .toc-anchor {
-    height: 1px;
-    width: 100%;
+  .site-footer {
+    border-top: 1px solid var(--border);
   }
 
-  /* Responsive */
-  @media (max-width: 1200px) {
-    .page-wrapper {
-      grid-template-columns: 1fr minmax(0, 720px) 300px 1fr;
+  .footer-inner {
+    width: min(100% - 2rem, 1120px);
+    min-height: 120px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .footer-inner nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+  }
+
+  .footer-inner a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .footer-inner a:hover {
+    color: var(--accent);
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: currentColor;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
+  }
+
+  @media (max-width: 720px) {
+    .page-shell {
+      border-radius: 0;
+      border-left: 0;
+      border-right: 0;
     }
-  }
 
-  @media (max-width: 980px) {
-    .page-wrapper {
-      grid-template-columns: 1fr;
+    .footer-inner {
+      min-height: 150px;
+      display: block;
+      padding: 2.5rem 0;
     }
 
-    .layout {
-      grid-column: 1;
-      grid-template-columns: 1fr;
-      padding: 2rem 1.25rem;
+    .footer-inner nav {
+      margin-top: 1rem;
     }
   }
 </style>
