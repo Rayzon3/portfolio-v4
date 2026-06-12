@@ -1,4 +1,5 @@
 import type { RequestHandler } from "./$types";
+import { blogPosts } from "$lib/data/blog";
 
 type RssItem = {
   title: string;
@@ -21,16 +22,13 @@ function escapeXml(str: string) {
     .replaceAll("'", "&apos;");
 }
 
-// ✅ Replace this with your real blog source (see next section)
 function getItems(): RssItem[] {
-  return [
-    {
-      title: "Hello, world!",
-      description: "My introduction post.",
-      link: `${SITE_URL}/blog/hello-world`,
-      pubDate: new Date("2025-12-28T08:29:00+05:30").toUTCString(),
-    },
-  ];
+  return blogPosts.map((post) => ({
+    title: post.title,
+    description: post.description,
+    link: `${SITE_URL}/blog/${post.slug}`,
+    pubDate: new Date(post.publishedAt).toUTCString(),
+  }));
 }
 
 function renderRss(items: RssItem[]) {

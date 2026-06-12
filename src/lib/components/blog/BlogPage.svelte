@@ -1,23 +1,7 @@
 <script>
   import SiteHeader from "$lib/components/layout/SiteHeader.svelte";
   import { socialLinks } from "$lib/data/nav";
-
-  const posts = [
-    {
-      date: "Jun 2026",
-      readTime: "4 min read",
-      title: "Notes on building fast web interfaces",
-      summary: "Practical patterns from React, Svelte, and server-backed UI work.",
-      tags: ["Frontend", "Performance"],
-    },
-    {
-      date: "Jun 2026",
-      readTime: "5 min read",
-      title: "Systems I want to understand better",
-      summary: "A running list across backend architecture, compilers, and tooling.",
-      tags: ["Systems", "Learning"],
-    },
-  ];
+  import { blogPosts } from "$lib/data/blog";
 </script>
 
 <svelte:head>
@@ -35,8 +19,8 @@
       </div>
 
       <div class="rows">
-        {#each posts as post}
-          <article class="row">
+        {#each blogPosts as post}
+          <a class="row" href={`/blog/${post.slug}`}>
             <div class="row-meta">
               <span>{post.date}</span>
               <span>{post.readTime}</span>
@@ -53,7 +37,7 @@
             </div>
 
             <span class="row-arrow" aria-hidden="true">→</span>
-          </article>
+          </a>
         {/each}
       </div>
     </section>
@@ -149,6 +133,12 @@
     align-items: start;
     padding: 2.1rem 0;
     border-bottom: 1px solid var(--border);
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .row:hover {
+    text-decoration: none;
   }
 
   .row-meta {
@@ -179,6 +169,14 @@
     color: var(--muted);
     font-size: 1.3rem;
     line-height: 1;
+    transition:
+      color 160ms ease,
+      transform 160ms ease;
+  }
+
+  a.row:hover .row-arrow {
+    color: var(--accent);
+    transform: translateX(0.25rem);
   }
 
   .tags {

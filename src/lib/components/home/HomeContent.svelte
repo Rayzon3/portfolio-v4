@@ -1,4 +1,5 @@
 <script>
+  import { blogPosts } from "$lib/data/blog";
   import { experiences, profile, stackList } from "$lib/data/home";
 
   const highlights = [
@@ -134,24 +135,31 @@
 <section id="writing" class="section-block">
   <div class="section-heading">
     <h2>Writing</h2>
+    <a href="/blog">All writing</a>
   </div>
 
   <div class="rows">
-    <div class="row writing-placeholder">
-      <div class="row-meta">
-        <span>Writing</span>
-        <span>In progress</span>
-      </div>
+    {#each blogPosts as post}
+      <a class="row writing-row" href={`/blog/${post.slug}`}>
+        <div class="row-meta">
+          <span>{post.date}</span>
+          <span>{post.readTime}</span>
+        </div>
 
-      <div class="row-main">
-        <h3>Coming soon</h3>
-        <p>
-          Essays, engineering notes, and technical write-ups are on the way.
-        </p>
-      </div>
+        <div class="row-main">
+          <h3>{post.title}</h3>
+          <p>{post.summary}</p>
 
-      <span class="row-arrow" aria-hidden="true">…</span>
-    </div>
+          <div class="tags" aria-label={`${post.title} topics`}>
+            {#each post.tags as tag}
+              <span>{tag}</span>
+            {/each}
+          </div>
+        </div>
+
+        <span class="row-arrow" aria-hidden="true">→</span>
+      </a>
+    {/each}
   </div>
 </section>
 
