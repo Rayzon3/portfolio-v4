@@ -45,10 +45,47 @@
   };
 
   let { variant }: { variant: DiagramVariant } = $props();
+  let scrollHost: HTMLDivElement;
   let diagramHost: HTMLDivElement;
 
-  onMount(async () => {
-    const { dia, shapes } = await import("@joint/core");
+  onMount(() => {
+    let startX = 0;
+    let startY = 0;
+    let startScrollLeft = 0;
+    let isHorizontalDrag = false;
+
+    const onTouchStart = (event: TouchEvent) => {
+      if (event.touches.length !== 1) return;
+
+      const [touch] = event.touches;
+      startX = touch.clientX;
+      startY = touch.clientY;
+      startScrollLeft = scrollHost.scrollLeft;
+      isHorizontalDrag = false;
+    };
+
+    const onTouchMove = (event: TouchEvent) => {
+      if (event.touches.length !== 1) return;
+
+      const [touch] = event.touches;
+      const deltaX = startX - touch.clientX;
+      const deltaY = startY - touch.clientY;
+
+      if (!isHorizontalDrag && Math.abs(deltaX) > Math.abs(deltaY) + 4) {
+        isHorizontalDrag = true;
+      }
+
+      if (!isHorizontalDrag) return;
+
+      event.preventDefault();
+      scrollHost.scrollLeft = startScrollLeft + deltaX;
+    };
+
+    scrollHost.addEventListener("touchstart", onTouchStart, { passive: true });
+    scrollHost.addEventListener("touchmove", onTouchMove, { passive: false });
+
+    void (async () => {
+      const { dia, shapes } = await import("@joint/core");
 
     const makePaper = (el: HTMLDivElement, width: number, height: number) => {
       const graph = new dia.Graph();
@@ -372,6 +409,12 @@
     };
 
     drawers[variant]();
+    })();
+
+    return () => {
+      scrollHost.removeEventListener("touchstart", onTouchStart);
+      scrollHost.removeEventListener("touchmove", onTouchMove);
+    };
   });
 </script>
 
@@ -380,7 +423,7 @@
     <div class="diagram-heading">
       <h3>{diagramCopy[variant].title}</h3>
     </div>
-    <div class="diagram-scroll" aria-label="Scrollable diagram">
+    <div bind:this={scrollHost} class="diagram-scroll" aria-label="Scrollable diagram">
       <div bind:this={diagramHost} class="joint-diagram"></div>
     </div>
   </section>
@@ -430,7 +473,6 @@
     -webkit-overflow-scrolling: touch;
     overscroll-behavior-inline: contain;
     scrollbar-width: thin;
-    touch-action: pan-x;
   }
 
   .joint-diagram {
