@@ -380,7 +380,9 @@
     <div class="diagram-heading">
       <h3>{diagramCopy[variant].title}</h3>
     </div>
-    <div bind:this={diagramHost} class="joint-diagram"></div>
+    <div class="diagram-scroll" aria-label="Scrollable diagram">
+      <div bind:this={diagramHost} class="joint-diagram"></div>
+    </div>
   </section>
 
   <figcaption>{diagramCopy[variant].caption}</figcaption>
@@ -421,6 +423,11 @@
     font-weight: 700;
   }
 
+  .diagram-scroll {
+    width: 100%;
+    overflow: hidden;
+  }
+
   .joint-diagram {
     width: 100%;
     min-height: 290px;
@@ -432,8 +439,23 @@
   }
 
   @media (max-width: 760px) {
+    .diagram-scroll {
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-inline: contain;
+      scrollbar-width: thin;
+    }
+
     .joint-diagram {
+      width: 760px;
+      min-width: 760px;
       min-height: 240px;
+    }
+
+    :global(.joint-diagram svg) {
+      width: 760px;
+      max-width: none;
     }
   }
 </style>
