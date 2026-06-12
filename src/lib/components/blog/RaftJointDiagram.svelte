@@ -425,37 +425,30 @@
 
   .diagram-scroll {
     width: 100%;
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: thin;
+    touch-action: pan-x;
   }
 
   .joint-diagram {
-    width: 100%;
+    width: 760px;
+    min-width: 760px;
     min-height: 290px;
   }
 
   :global(.joint-diagram svg) {
     display: block;
-    width: 100%;
+    width: 760px;
+    max-width: none;
+    pointer-events: none;
   }
 
   @media (max-width: 760px) {
-    .diagram-scroll {
-      overflow-x: auto;
-      overflow-y: hidden;
-      -webkit-overflow-scrolling: touch;
-      overscroll-behavior-inline: contain;
-      scrollbar-width: thin;
-    }
-
     .joint-diagram {
-      width: 760px;
-      min-width: 760px;
       min-height: 240px;
-    }
-
-    :global(.joint-diagram svg) {
-      width: 760px;
-      max-width: none;
     }
   }
 </style>
