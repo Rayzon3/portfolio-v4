@@ -50,8 +50,8 @@
       I work mostly with <span class="inline-accent-teal">TypeScript</span>,
       <span class="inline-accent-teal">Node.js</span>,
       <span class="inline-accent-teal">React</span>, and
-      <span class="inline-accent-teal">Svelte</span>, with a growing interest
-      in <span class="inline-accent-teal">Elixir</span>,
+      <span class="inline-accent-teal">Svelte</span>, with a growing interest in
+      <span class="inline-accent-teal">Elixir</span>,
       <span class="inline-accent-teal">Go</span>, and low-level programming.
     </p>
 

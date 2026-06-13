@@ -1,5 +1,6 @@
 <script lang="ts">
   import favicon from "$lib/assets/favicon.svg";
+  import PixelPal from "$lib/components/fun/PixelPal.svelte";
 
   let { children } = $props();
 </script>
@@ -19,3 +20,5 @@
 </svelte:head>
 
 {@render children()}
+
+<PixelPal />
