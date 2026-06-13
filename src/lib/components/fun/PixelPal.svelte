@@ -166,6 +166,7 @@
       "wanna see my projects?",
       "press ↑ to jump!",
       "404? not on my watch",
+      "watch out for goblins!",
       "built with Svelte btw",
       "i live in this footer",
       "hire this guy →",
