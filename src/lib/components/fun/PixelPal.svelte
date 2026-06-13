@@ -173,6 +173,7 @@
       "down well, up code",
       "stack overflow? i don't fall",
       "brb, fighting a bug",
+      "ahhhh~",
       "let him cook 🔥",
       "weeee~",
     ];
@@ -416,7 +417,10 @@
         ctx.fillText(hint, tx, player.y - 10);
       } else if (sayText && player.grounded) {
         // fade the bubble in at the start and out at the end of its life
-        const alpha = Math.max(0, Math.min(1, sayTimer / 0.3, (2.6 - sayTimer) / 0.2));
+        const alpha = Math.max(
+          0,
+          Math.min(1, sayTimer / 0.3, (2.6 - sayTimer) / 0.2),
+        );
         ctx.font = "500 12px 'Instrument Sans', system-ui, sans-serif";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
@@ -425,7 +429,10 @@
         const tw = ctx.measureText(sayText).width;
         const bw = tw + padX * 2;
         const bh = 12 + padY * 2;
-        const cx = Math.min(Math.max(player.x + PW / 2, bw / 2 + 6), viewW - bw / 2 - 6);
+        const cx = Math.min(
+          Math.max(player.x + PW / 2, bw / 2 + 6),
+          viewW - bw / 2 - 6,
+        );
         const by = player.y - 14 - bh; // bubble bottom sits above the head
         ctx.globalAlpha = alpha;
         ctx.fillStyle = "rgba(18, 16, 23, 0.92)";
