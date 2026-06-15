@@ -26,9 +26,9 @@ export const blogPosts: BlogPost[] = [
     title: "Why Distributed Systems Need Consensus",
     description:
       "A practical explanation of why distributed systems need consensus and how the Raft Consensus Algorithm solves leader election, log replication, and consistency problems.",
-    date: "Jun 2026",
+    date: "14th Jun 2026",
     publishedAt: "2026-06-12T09:00:00+05:30",
-    readTime: "10 min read",
+    readTime: "8 min read",
     tags: ["Distributed Systems", "Raft", "Backend"],
     summary:
       "Why clusters need agreement, what actually goes wrong when machines fail, and how Raft keeps state consistent through leader election and log replication.",
@@ -44,9 +44,9 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "The real problem begins when machines fail",
         paragraphs: [
-          "In local development, a request feels straightforward. You send a write, the server processes it, and you move on.",
-          "Production systems are different. Multiple nodes receive traffic, replicate state, and exchange messages over unreliable networks. Failures are normal, not exceptional.",
-          "Now you have a real question: was the payment successful, should it be retried, and which node should the rest of the system trust?",
+          "On a single machine, a write feels simple. The request arrives, the server updates its state, and the system moves forward.",
+          "In production, that same write may pass through multiple nodes that are replicating data, coordinating state, and communicating over unreliable networks. Failures are part of the normal operating model.",
+          "When one node records a result and another does not, the system has to answer a harder question: what actually happened, and which version of the state should everyone trust?",
         ],
         codeBlocks: [
           {
