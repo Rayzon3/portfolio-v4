@@ -1,8 +1,12 @@
 <script lang="ts">
   import favicon from "$lib/assets/favicon.svg";
+  import BootScreen from "$lib/components/fun/BootScreen.svelte";
+  import ClickSound from "$lib/components/fun/ClickSound.svelte";
+  import MusicPlayer from "$lib/components/fun/MusicPlayer.svelte";
   import PixelPal from "$lib/components/fun/PixelPal.svelte";
 
   let { children } = $props();
+  let booted = $state(false);
 </script>
 
 <svelte:head>
@@ -21,4 +25,10 @@
 
 {@render children()}
 
-<PixelPal />
+<BootScreen onReady={() => (booted = true)} />
+
+{#if booted}
+  <ClickSound />
+  <MusicPlayer />
+  <PixelPal />
+{/if}
