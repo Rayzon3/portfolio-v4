@@ -26,9 +26,9 @@
 {@render children()}
 
 <BootScreen onReady={() => (booted = true)} />
+<ClickSound />
 
 {#if booted}
-  <ClickSound />
   <MusicPlayer />
   <PixelPal />
 {/if}
