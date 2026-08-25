@@ -56,10 +56,22 @@
     </p>
 
     <div class="quick-links" aria-label="Portfolio sections">
-      <a href="#experience">Experience</a>
-      <a href="#projects">Projects</a>
-      <a href="#writing">Writing</a>
-      <a href="#contact">Contact</a>
+      <a href="#experience">
+        <img src="/sword_01.png" alt="" aria-hidden="true" />
+        Experience
+      </a>
+      <a href="#projects">
+        <img src="/wooden_box.png" alt="" aria-hidden="true" />
+        Projects
+      </a>
+      <a href="#writing">
+        <img src="/book.png" alt="" aria-hidden="true" />
+        Writing
+      </a>
+      <a href="#contact">
+        <img src="/feather_a.png" alt="" aria-hidden="true" />
+        Contact
+      </a>
     </div>
   </div>
 </section>
@@ -213,7 +225,7 @@
   h1 {
     color: var(--text);
     font-family: "Instrument Serif", Georgia, serif;
-    font-size: clamp(3.4rem, 8.5vw, 7rem);
+    font-size: clamp(2.8rem, 6.3vw, 5.2rem);
     font-weight: 400;
     line-height: 0.88;
     letter-spacing: 0;
@@ -265,14 +277,35 @@
     margin-top: 3rem;
     display: flex;
     flex-wrap: wrap;
-    gap: 1.6rem;
+    align-items: end;
+    gap: clamp(1.25rem, 4vw, 2.75rem);
+    width: fit-content;
     color: var(--muted);
-    font-size: 0.95rem;
+    font-size: 0.78rem;
   }
 
   .quick-links a {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    gap: 0.35rem;
+    min-width: 58px;
     color: var(--muted);
     text-decoration: none;
+  }
+
+  .quick-links img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 4px 7px rgba(0, 0, 0, 0.28));
+    transition: transform 160ms ease;
+  }
+
+  .quick-links a:hover img {
+    transform: translateY(-3px);
   }
 
   .quick-links a:hover {
@@ -408,7 +441,7 @@
     }
 
     h1 {
-      font-size: clamp(2.8rem, 14vw, 4.5rem);
+      font-size: clamp(2.35rem, 10.5vw, 3.5rem);
     }
 
     .lede {
@@ -417,6 +450,21 @@
 
     .intro {
       margin-top: 3rem;
+    }
+
+    .quick-links {
+      width: 100%;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .quick-links a {
+      min-width: 0;
+    }
+
+    .quick-links img {
+      width: 40px;
+      height: 40px;
     }
 
     .section-heading {

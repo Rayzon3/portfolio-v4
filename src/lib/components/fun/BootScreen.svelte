@@ -20,6 +20,10 @@
     { src: "/jumping.png", label: "jumping sprite" },
     { src: "/IMG_3603.png", label: "profile image" },
     { src: "/MapleMono-NF-Base-Mono.ttf", label: "terminal font" },
+    { src: "/sword_01.png", label: "experience icon" },
+    { src: "/wooden_box.png", label: "projects icon" },
+    { src: "/book.png", label: "writing icon" },
+    { src: "/feather_a.png", label: "contact icon" },
     { src: clickSoundSrc, label: "interface sounds" },
     ...tracks.map((track) => ({
       src: track.src,
