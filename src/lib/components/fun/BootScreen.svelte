@@ -24,6 +24,7 @@
     { src: "/wooden_box.png", label: "projects icon" },
     { src: "/book.png", label: "writing icon" },
     { src: "/feather_a.png", label: "contact icon" },
+    { src: "/compass.png", label: "mobile navigation icon" },
     { src: clickSoundSrc, label: "interface sounds" },
     ...tracks.map((track) => ({
       src: track.src,

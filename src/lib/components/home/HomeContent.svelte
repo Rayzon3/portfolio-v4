@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from "svelte";
   import { blogPosts } from "$lib/data/blog";
   import { experiences, profile, stackList } from "$lib/data/home";
 
@@ -34,6 +35,42 @@
         "Interactive pathfinding visualizer with optimized rendering and animated traversal updates for exploring A* search behavior.",
     },
   ];
+
+  const sectionLinks = [
+    { href: "#experience", label: "Experience", icon: "/sword_01.png" },
+    { href: "#projects", label: "Projects", icon: "/wooden_box.png" },
+    { href: "#writing", label: "Writing", icon: "/book.png" },
+    { href: "#contact", label: "Contact", icon: "/feather_a.png" },
+  ];
+
+  /** @type {HTMLElement | undefined} */
+  let quickLinks;
+  let showFloatingLinks = false;
+  let mobileMenuOpen = false;
+  let isMobile = false;
+
+  $: dockInteractive =
+    showFloatingLinks && (!isMobile || mobileMenuOpen);
+
+  onMount(() => {
+    const updateFloatingLinks = () => {
+      if (!quickLinks) return;
+      isMobile = window.innerWidth <= 760;
+      const headerOffset = window.innerWidth <= 640 ? 78 : 94;
+      showFloatingLinks =
+        quickLinks.getBoundingClientRect().bottom <= headerOffset;
+      if (!showFloatingLinks) mobileMenuOpen = false;
+    };
+
+    updateFloatingLinks();
+    window.addEventListener("scroll", updateFloatingLinks, { passive: true });
+    window.addEventListener("resize", updateFloatingLinks);
+
+    return () => {
+      window.removeEventListener("scroll", updateFloatingLinks);
+      window.removeEventListener("resize", updateFloatingLinks);
+    };
+  });
 </script>
 
 <section class="hero" aria-labelledby="intro-title">
@@ -55,26 +92,49 @@
       <span class="inline-accent-teal">Go</span>, and low-level programming.
     </p>
 
-    <div class="quick-links" aria-label="Portfolio sections">
-      <a href="#experience">
-        <img src="/sword_01.png" alt="" aria-hidden="true" />
-        Experience
-      </a>
-      <a href="#projects">
-        <img src="/wooden_box.png" alt="" aria-hidden="true" />
-        Projects
-      </a>
-      <a href="#writing">
-        <img src="/book.png" alt="" aria-hidden="true" />
-        Writing
-      </a>
-      <a href="#contact">
-        <img src="/feather_a.png" alt="" aria-hidden="true" />
-        Contact
-      </a>
+    <div bind:this={quickLinks} class="quick-links" aria-label="Portfolio sections">
+      {#each sectionLinks as link}
+        <a href={link.href}>
+          <img src={link.icon} alt="" aria-hidden="true" />
+          {link.label}
+        </a>
+      {/each}
     </div>
   </div>
 </section>
+
+<nav
+  id="section-dock"
+  class="floating-links"
+  class:visible={showFloatingLinks}
+  class:open={mobileMenuOpen}
+  aria-label="Portfolio sections"
+  aria-hidden={!dockInteractive}
+>
+  {#each sectionLinks as link}
+    <a
+      href={link.href}
+      tabindex={dockInteractive ? undefined : -1}
+      onclick={() => (mobileMenuOpen = false)}
+    >
+      <img src={link.icon} alt="" aria-hidden="true" />
+      <span>{link.label}</span>
+    </a>
+  {/each}
+</nav>
+
+<button
+  class="dock-toggle"
+  class:visible={showFloatingLinks}
+  type="button"
+  onclick={() => (mobileMenuOpen = !mobileMenuOpen)}
+  aria-label={mobileMenuOpen ? "Close section menu" : "Open section menu"}
+  aria-expanded={mobileMenuOpen}
+  aria-controls="section-dock"
+  tabindex={showFloatingLinks && isMobile ? undefined : -1}
+>
+  <img src="/compass.png" alt="" aria-hidden="true" />
+</button>
 
 <section id="experience" class="section-block">
   <div class="section-heading">
@@ -317,8 +377,74 @@
     text-underline-offset: 0.18em;
   }
 
+  .floating-links {
+    position: fixed;
+    top: 50%;
+    left: 1rem;
+    z-index: 90;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.3rem;
+    padding: 0.55rem 0.45rem;
+    border: 1px solid var(--border-strong);
+    border-radius: 18px;
+    background: rgba(18, 16, 23, 0.9);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-10px, -50%);
+    transition:
+      opacity 180ms ease,
+      transform 180ms ease;
+  }
+
+  .floating-links.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(0, -50%);
+  }
+
+  .floating-links a {
+    min-width: 58px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    padding: 0.25rem;
+    border-radius: 10px;
+    color: var(--muted);
+    font-size: 0.68rem;
+    line-height: 1;
+    text-decoration: none;
+  }
+
+  .floating-links img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    image-rendering: pixelated;
+    transition: transform 160ms ease;
+  }
+
+  .floating-links a:hover {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .floating-links a:hover img {
+    transform: translateY(-3px);
+  }
+
+  .dock-toggle {
+    display: none;
+  }
+
   .section-block {
     padding: clamp(4.5rem, 10vw, 8rem) 0;
+    scroll-margin-top: 100px;
   }
 
   .section-heading {
@@ -467,6 +593,93 @@
       height: 40px;
     }
 
+    .floating-links {
+      top: auto;
+      bottom: 4.75rem;
+      left: 1rem;
+      width: auto;
+      margin: 0;
+      padding: 0.45rem 0.35rem;
+      border-radius: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px) scale(0.96);
+    }
+
+    .floating-links.visible {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px) scale(0.96);
+    }
+
+    .floating-links.visible.open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+
+    .floating-links a {
+      min-width: 48px;
+      padding: 0.2rem;
+      font-size: 0.52rem;
+    }
+
+    .floating-links img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .section-block {
+      scroll-margin-top: 84px;
+    }
+
+    .dock-toggle {
+      position: fixed;
+      left: 1rem;
+      bottom: 1rem;
+      z-index: 91;
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      padding: 0;
+      border: 1px solid var(--border-strong);
+      border-radius: 50%;
+      background: rgba(18, 16, 23, 0.92);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition:
+        opacity 180ms ease,
+        transform 180ms ease,
+        border-color 160ms ease;
+    }
+
+    .dock-toggle.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .dock-toggle:hover {
+      border-color: var(--accent);
+    }
+
+    .dock-toggle:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .dock-toggle img {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+      image-rendering: pixelated;
+    }
+
     .section-heading {
       display: block;
     }
@@ -483,6 +696,23 @@
 
     .row-meta {
       grid-column: 1 / -1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .quick-links img,
+    .floating-links img,
+    .floating-links {
+      transition: none;
+    }
+
+    .dock-toggle {
+      transition: none;
+    }
+
+    .quick-links a:hover img,
+    .floating-links a:hover img {
+      transform: none;
     }
   }
 </style>
