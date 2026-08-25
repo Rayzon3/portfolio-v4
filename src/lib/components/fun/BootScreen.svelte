@@ -9,7 +9,7 @@
   let progress = $state(0);
   let logElement = $state<HTMLDivElement>();
   let logs = $state<string[]>([
-    "[    0.000000 ] Rahul/OS 4.0.0 starting...",
+    "[    0.000000 ] sys 4.0.0 starting...",
     "[    0.000314 ] mounting portfolio filesystem",
     "[    0.001337 ] initializing media subsystem",
   ]);
@@ -155,12 +155,17 @@
     place-items: center;
     padding: clamp(1.25rem, 5vw, 4rem);
     overflow: hidden;
-    background:
-      radial-gradient(circle at 50% 45%, rgba(85, 214, 194, 0.07), transparent 42%),
+    background: radial-gradient(
+        circle at 50% 45%,
+        rgba(85, 214, 194, 0.07),
+        transparent 42%
+      ),
       #07060a;
     color: #b7b1bb;
     opacity: 1;
-    transition: opacity 420ms ease, visibility 420ms ease;
+    transition:
+      opacity 420ms ease,
+      visibility 420ms ease;
   }
 
   .boot-screen::after {
@@ -183,7 +188,8 @@
 
   .terminal {
     width: min(100%, 760px);
-    font-family: "Maple Mono Boot", ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-family: "Maple Mono Boot", ui-monospace, SFMono-Regular, Menlo,
+      monospace;
   }
 
   .wordmark {
@@ -244,7 +250,9 @@
   }
 
   @keyframes blink {
-    50% { opacity: 0; }
+    50% {
+      opacity: 0;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
