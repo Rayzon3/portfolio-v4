@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount, tick } from "svelte";
+  import { onMount } from "svelte";
   import { clickSoundSrc, tracks } from "$lib/data/audio";
 
   let { onReady }: { onReady: () => void } = $props();
@@ -7,12 +7,7 @@
   let visible = $state(true);
   let fading = $state(false);
   let progress = $state(0);
-  let logElement = $state<HTMLDivElement>();
-  let logs = $state<string[]>([
-    "[    0.000000 ] sys 4.0.0 starting...",
-    "[    0.000314 ] mounting portfolio filesystem",
-    "[    0.001337 ] initializing media subsystem",
-  ]);
+  let status = $state("Initializing portfolio filesystem...");
 
   const assets = [
     { src: "/idle.png", label: "idle sprite" },
@@ -32,13 +27,6 @@
     })),
   ];
 
-  $effect(() => {
-    logs.length;
-    void tick().then(() => {
-      if (logElement) logElement.scrollTop = logElement.scrollHeight;
-    });
-  });
-
   onMount(() => {
     const startedAt = performance.now();
     const controller = new AbortController();
@@ -49,7 +37,7 @@
     document.body.classList.add("booting");
 
     const addLog = (message: string) => {
-      if (!disposed) logs = [...logs, message];
+      if (!disposed) status = message;
     };
 
     const loadAsset = async (asset: (typeof assets)[number]) => {
@@ -119,23 +107,19 @@
 </script>
 
 {#if visible}
-  <div class="boot-screen" class:fading role="status" aria-live="polite">
-    <div class="terminal">
-      <div class="wordmark">sys<span>/init</span></div>
+  <div class="boot-screen" class:fading>
+    <div class="terminal" aria-label="Portfolio boot loader">
+      <div class="version">GNU GRUB <span>version 2.04</span></div>
 
-      <div class="log" bind:this={logElement} aria-label="Loading website">
-        {#each logs as line}
-          <div>{line}</div>
-        {/each}
-        <span class="cursor" aria-hidden="true"></span>
+      <div class="boot-menu" aria-label="Boot entry">
+        <div class="selected-entry">*Rahul Bhardwaj — Portfolio</div>
+        <div class="entry-detail">sys/init (v4.0.0)</div>
       </div>
 
-      <div class="progress-row">
-        <span>BOOT</span>
-        <div class="progress-track" aria-hidden="true">
-          <div class="progress-fill" style:width={`${progress}%`}></div>
-        </div>
-        <span>{progress.toString().padStart(3, "0")}%</span>
+      <div class="boot-help">
+        <p>The highlighted entry will boot automatically.</p>
+        <p>Loading portfolio assets... {progress.toString().padStart(3, "0")}%</p>
+        <p class="status" role="status" aria-live="polite">{status}</p>
       </div>
     </div>
   </div>
@@ -156,34 +140,16 @@
     position: fixed;
     inset: 0;
     z-index: 1000;
-    display: grid;
-    place-items: center;
-    padding: clamp(1.25rem, 5vw, 4rem);
-    overflow: hidden;
-    background: radial-gradient(
-        circle at 50% 45%,
-        rgba(85, 214, 194, 0.07),
-        transparent 42%
-      ),
-      #07060a;
-    color: #b7b1bb;
+    padding: clamp(12px, 2vw, 28px);
+    overflow: auto;
+    background: #000;
+    color: #aaa;
     opacity: 1;
-    transition:
-      opacity 420ms ease,
-      visibility 420ms ease;
-  }
-
-  .boot-screen::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: repeating-linear-gradient(
-      to bottom,
-      transparent 0,
-      transparent 3px,
-      rgba(255, 255, 255, 0.018) 4px
-    );
+    transition: opacity 420ms ease, visibility 420ms ease;
+    font-family: "Maple Mono Boot", "Courier New", monospace;
+    font-size: clamp(12px, 1.5vw, 16px);
+    font-weight: 400;
+    line-height: 1.25;
   }
 
   .boot-screen.fading {
@@ -192,82 +158,60 @@
   }
 
   .terminal {
-    width: min(100%, 760px);
-    font-family: "Maple Mono Boot", ui-monospace, SFMono-Regular, Menlo,
-      monospace;
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
   }
 
-  .wordmark {
-    margin-bottom: clamp(2.5rem, 8vh, 5.5rem);
-    color: #f4f1f4;
-    font-size: clamp(1.4rem, 4vw, 2.25rem);
-    font-weight: 700;
-    letter-spacing: -0.06em;
+  .version {
+    margin-bottom: clamp(22px, 5vh, 48px);
+    text-align: center;
   }
 
-  .wordmark span {
-    color: #55d6c2;
+  .version span {
+    margin-left: 1ch;
   }
 
-  .log {
-    height: min(40vh, 290px);
-    overflow: hidden;
-    font-size: clamp(0.68rem, 1.7vw, 0.86rem);
-    line-height: 1.7;
+  .boot-menu {
+    min-height: 62vh;
+    border: 2px solid #ddd;
+    padding: 6px 3px;
+    color: #ddd;
   }
 
-  .log div {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  .selected-entry {
+    background: #aaa;
+    color: #000;
+    padding-right: 1ch;
+    overflow-wrap: anywhere;
   }
 
-  .cursor {
-    display: inline-block;
-    width: 0.6em;
-    height: 1em;
-    margin-top: 0.25rem;
-    background: #55d6c2;
-    vertical-align: text-bottom;
-    animation: blink 700ms steps(1) infinite;
+  .entry-detail {
+    padding-left: 1ch;
   }
 
-  .progress-row {
-    display: grid;
-    grid-template-columns: auto 1fr 4ch;
-    gap: 0.8rem;
-    align-items: center;
-    margin-top: 1.5rem;
-    color: #918895;
-    font-size: 0.7rem;
+  .boot-help {
+    margin: clamp(22px, 5vh, 40px) clamp(8px, 5vw, 64px) 0;
+    overflow-wrap: anywhere;
   }
 
-  .progress-track {
-    height: 3px;
-    overflow: hidden;
-    background: rgba(145, 136, 149, 0.2);
+  .boot-help p {
+    margin: 0;
   }
 
-  .progress-fill {
-    height: 100%;
-    background: #55d6c2;
-    transition: width 180ms ease;
+  .status {
+    margin-top: 1em !important;
   }
 
-  @keyframes blink {
-    50% {
-      opacity: 0;
+  @media (max-width: 480px) {
+    .boot-menu {
+      min-height: 55vh;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .boot-screen,
-    .progress-fill {
+    .boot-screen {
       transition: none;
-    }
-
-    .cursor {
-      animation: none;
     }
   }
 </style>
