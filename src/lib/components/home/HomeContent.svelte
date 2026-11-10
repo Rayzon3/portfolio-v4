@@ -3,6 +3,8 @@
   import { blogPosts } from "$lib/data/blog";
   import { experiences, profile, stackList } from "$lib/data/home";
 
+  let expandedExperiences = new Set();
+
   const highlights = [
     "TypeScript",
     "Node.js",
@@ -142,16 +144,22 @@
   </div>
 
   <div class="rows">
-    {#each experiences as experience}
+    {#each experiences as experience, index}
       <article class="row">
         <div class="row-meta">
           <span>{experience.period}</span>
-          <span>{experience.company}</span>
+          <span>{experience.company} · {experience.location}</span>
         </div>
 
         <div class="row-main">
           <h3>{experience.role}</h3>
-          <p>{experience.achievements[0]}</p>
+          <div id={`experience-achievements-${index}`} hidden={!expandedExperiences.has(index)}>
+            <ul class="achievements">
+              {#each experience.achievements as achievement}
+                <li>{achievement}</li>
+              {/each}
+            </ul>
+          </div>
 
           <div class="tags" aria-label={`${experience.company} technologies`}>
             {#each experience.tech.slice(0, 6) as tech}
@@ -160,7 +168,20 @@
           </div>
         </div>
 
-        <span class="row-arrow" aria-hidden="true">→</span>
+        <button
+          class="experience-toggle"
+          aria-label={`${expandedExperiences.has(index) ? "Hide" : "Show"} achievements for ${experience.role} at ${experience.company}`}
+          aria-expanded={expandedExperiences.has(index)}
+          aria-controls={`experience-achievements-${index}`}
+          onclick={() => {
+            const next = new Set(expandedExperiences);
+            if (next.has(index)) next.delete(index);
+            else next.add(index);
+            expandedExperiences = next;
+          }}
+        >
+          <span class="row-arrow" aria-hidden="true">→</span>
+        </button>
       </article>
     {/each}
   </div>
@@ -498,11 +519,36 @@
     line-height: 1.05;
   }
 
-  .row-main p {
+  .row-main p,
+  .achievements {
     margin-top: 0.7rem;
     color: var(--soft);
     font-size: clamp(0.92rem, 1.08vw, 1.05rem);
     line-height: 1.35;
+  }
+
+  .achievements {
+    padding-left: 1.2rem;
+  }
+
+  .experience-toggle {
+    display: grid;
+    place-items: center;
+    min-width: 32px;
+    min-height: 32px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .experience-toggle:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+  }
+
+  .achievements li + li {
+    margin-top: 0.65rem;
   }
 
   .row-arrow {
@@ -518,6 +564,12 @@
   .row:hover .row-arrow {
     color: var(--accent);
     transform: translateX(0.25rem);
+  }
+
+  .experience-toggle[aria-expanded="true"] .row-arrow,
+  .row:hover .experience-toggle[aria-expanded="true"] .row-arrow {
+    transform: rotate(90deg);
+    color: var(--accent);
   }
 
   .tags,
